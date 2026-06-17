@@ -1,0 +1,111 @@
+.wudu {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 50% 20%, rgba(42,191,191,0.1) 0%, transparent 60%);
+}
+
+.wudu-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+}
+.wudu-back  { background: none; color: var(--gold); font-size: 22px; padding: 4px 8px; }
+.wudu-title { font-size: 15px; font-weight: 600; color: var(--teal-light); }
+.wudu-count { font-size: 13px; color: var(--muted); }
+
+.wudu-progress { height: 4px; background: var(--bg-card2); }
+.wudu-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #60E8E8); transition: width 0.3s; }
+
+.wudu-content {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 14px; padding: 20px 20px 32px;
+  overflow-y: auto;
+}
+
+/* Image */
+.wudu-img-placeholder {
+  width: 180px; height: 180px;
+  background: rgba(42,191,191,0.06);
+  border: 1px solid rgba(42,191,191,0.25);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 72px;
+  flex-shrink: 0;
+}
+.wudu-img-wrap {
+  width: 180px; height: 180px;
+  background: rgba(42,191,191,0.06);
+  border: 1px solid rgba(42,191,191,0.25);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.wudu-img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 8px; }
+
+/* Gouttes de répétition */
+.wudu-times { display: flex; gap: 6px; font-size: 22px; }
+.wudu-drop  { animation: drip 1.4s ease-in-out infinite; }
+.wudu-drop:nth-child(2) { animation-delay: 0.2s; }
+.wudu-drop:nth-child(3) { animation-delay: 0.4s; }
+@keyframes drip { 0%,100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(4px); opacity: 0.6; } }
+
+.wudu-step-label { font-size: 20px; font-weight: 700; color: var(--text); }
+
+.wudu-arabic {
+  font-size: 28px; color: var(--gold-light);
+  direction: rtl; text-align: center;
+  line-height: 1.8; white-space: pre-line;
+}
+
+.wudu-translit {
+  font-size: 13px; color: var(--teal-light);
+  font-style: italic; text-align: center;
+  white-space: pre-line; line-height: 1.6;
+}
+
+.wudu-desc-toggle {
+  background: none; color: var(--muted); font-size: 13px;
+  padding: 4px 12px; border: 1px solid var(--border); border-radius: 50px;
+}
+.wudu-description {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  font-size: 14px; color: var(--text); line-height: 1.6; text-align: center;
+  width: 100%;
+}
+
+.wudu-next-btn {
+  background: linear-gradient(135deg, var(--teal), #60E8E8);
+  color: #000; font-weight: 700; font-size: 17px;
+  padding: 15px 40px; border-radius: 50px; width: 100%;
+}
+
+/* Dots */
+.wudu-dots { display: flex; justify-content: center; gap: 4px; padding: 12px; flex-wrap: wrap; }
+.wudu-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--bg-card2); transition: background 0.2s; }
+.wudu-dot.past   { background: var(--teal); }
+.wudu-dot.active { background: var(--teal-light); width: 18px; border-radius: 3px; }
+
+/* Done */
+.wudu-done {
+  max-width: 480px; margin: 0 auto; min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 20px; padding: 40px 24px; text-align: center;
+}
+.wudu-done-icon { font-size: 72px; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.wudu-done h2 { font-size: 28px; color: var(--teal-light); }
+.wudu-done p  { color: var(--muted); font-size: 16px; line-height: 1.6; }
+.wudu-done-xp {
+  background: var(--teal); color: var(--gold-light);
+  font-weight: 700; font-size: 18px;
+  padding: 8px 24px; border-radius: 50px;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #B8960C);
+  color: #000; font-weight: 700; font-size: 16px;
+  padding: 14px 36px; border-radius: 50px; width: 100%;
+}

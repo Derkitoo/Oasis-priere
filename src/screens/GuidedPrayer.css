@@ -1,0 +1,158 @@
+.gp {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(ellipse at 50% 30%, rgba(27,107,107,0.15) 0%, transparent 60%);
+}
+
+.gp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+.gp-back { background: none; color: var(--gold); font-size: 22px; padding: 4px 8px; }
+.gp-title { font-size: 15px; font-weight: 600; color: var(--gold-light); }
+.gp-count { font-size: 13px; color: var(--muted); }
+
+.gp-progress { height: 4px; background: var(--bg-card2); }
+.gp-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--gold)); transition: width 0.3s; }
+
+.gp-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px 32px;
+  overflow-y: auto;
+}
+
+/* Image de posture */
+.gp-posture-wrap {
+  width: 180px;
+  height: 180px;
+  background: rgba(42,191,191,0.06);
+  border: 1px solid rgba(42,191,191,0.25);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.gp-posture-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.gp-step-label {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.gp-arabic {
+  font-size: 26px;
+  color: var(--gold-light);
+  direction: rtl;
+  text-align: center;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
+.gp-translit {
+  font-size: 13px;
+  color: var(--teal-light);
+  text-align: center;
+  font-style: italic;
+  white-space: pre-line;
+  line-height: 1.6;
+  padding: 0 12px;
+}
+
+/* Accordéon description */
+.gp-desc-toggle {
+  background: none;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 50px;
+}
+.gp-description {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+  text-align: center;
+  width: 100%;
+}
+
+/* Bouton suivant */
+.gp-next-btn {
+  background: linear-gradient(135deg, var(--teal), var(--teal-light));
+  color: #000;
+  font-weight: 700;
+  font-size: 17px;
+  padding: 15px 40px;
+  border-radius: 50px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Points */
+.gp-dots {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+.gp-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--bg-card2);
+  transition: background 0.2s;
+}
+.gp-dot.past { background: var(--teal); }
+.gp-dot.active { background: var(--gold); width: 18px; border-radius: 3px; }
+
+/* Écran de fin */
+.gp-done {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 24px;
+  text-align: center;
+}
+.done-icon { font-size: 72px; animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.gp-done h2 { font-size: 28px; color: var(--gold-light); }
+.gp-done p { color: var(--muted); font-size: 16px; }
+.done-xp {
+  background: var(--teal);
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 8px 24px;
+  border-radius: 50px;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #B8960C);
+  color: #000; font-weight: 700; font-size: 16px;
+  padding: 14px 36px; border-radius: 50px; width: 100%;
+}
