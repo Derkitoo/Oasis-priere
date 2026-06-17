@@ -114,7 +114,7 @@ export default function Learning({ user, onUser, onBack }: Props) {
           ].map(p => (
             <div key={p.id} className="posture-card">
               <div className="posture-img-wrap">
-                <img src={`/postures/${p.img}`} alt={p.label} className="posture-img" />
+                <img src={`${import.meta.env.BASE_URL}postures/${p.img}`} alt={p.label} className="posture-img" />
               </div>
               <div className="posture-info">
                 <div className="posture-name">{p.label}</div>

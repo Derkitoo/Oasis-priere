@@ -63,7 +63,7 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
         <div className="gp-posture-wrap">
           <img
             className="gp-posture-img"
-            src={`/postures/${step.image}`}
+            src={`${import.meta.env.BASE_URL}postures/${step.image}`}
             alt={step.label}
           />
         </div>

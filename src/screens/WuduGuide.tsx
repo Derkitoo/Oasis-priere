@@ -59,7 +59,7 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
         {/* Image */}
         {step.image ? (
           <div className="wudu-img-wrap">
-            <img className="wudu-img" src={`/wudu/${step.image}`} alt={step.label} />
+            <img className="wudu-img" src={`${import.meta.env.BASE_URL}wudu/${step.image}`} alt={step.label} />
           </div>
         ) : (
           <div className="wudu-img-placeholder">💧</div>
