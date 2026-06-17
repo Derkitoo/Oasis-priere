@@ -1,111 +1,148 @@
+/* =========================================================
+   Wudu (ablutions) — restyle (thème bleu eau + mélange A+B+C)
+   CSS seul : remplace l'ancien WuduGuide.css, ne touche pas au .tsx
+   ========================================================= */
+
 .wudu {
-  max-width: 480px;
-  margin: 0 auto;
+  --blue: #4EA8DE; --blue-d: #2E86C0; --blue-soft: #DCEFFB;
+  --cream: #FFF8EC; --ink: #3D4A35; --muted: #9BB2C0;
+  --yellow-soft: #FCEFC7;
+
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: radial-gradient(ellipse at 50% 20%, rgba(42,191,191,0.1) 0%, transparent 60%);
+  background: linear-gradient(180deg, #E8F5FC, #FFF8EC 45%);
+  font-family: 'Quicksand', sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 18px 18px 26px;
 }
 
 .wudu-topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 20px;
+  width: 100%; max-width: 460px;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
 }
-.wudu-back  { background: none; color: var(--gold); font-size: 22px; padding: 4px 8px; }
-.wudu-title { font-size: 15px; font-weight: 600; color: var(--teal-light); }
-.wudu-count { font-size: 13px; color: var(--muted); }
+.wudu-back {
+  width: 42px; height: 42px; border: none; border-radius: 14px;
+  background: #fff; color: var(--ink); font-size: 18px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(60,120,160,.12); transition: transform .12s;
+}
+.wudu-back:hover { transform: translateX(-2px); }
+.wudu-title {
+  flex: 1; font-family: 'Baloo 2', cursive; font-weight: 800;
+  font-size: 17px; color: #2E7DA8;
+}
+.wudu-count {
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 12px;
+  color: #6FA3BE; background: #fff; padding: 5px 12px; border-radius: 100px;
+  box-shadow: 0 3px 10px rgba(60,120,160,.1);
+}
 
-.wudu-progress { height: 4px; background: var(--bg-card2); }
-.wudu-fill { height: 100%; background: linear-gradient(90deg, var(--teal), #60E8E8); transition: width 0.3s; }
+.wudu-progress {
+  width: 100%; max-width: 460px; height: 12px;
+  background: #C9E6F4; border-radius: 100px; overflow: hidden; margin-bottom: 16px;
+}
+.wudu-fill {
+  height: 100%; border-radius: 100px;
+  background: linear-gradient(90deg, #7EC8E3, #4EA8DE); transition: width .4s ease;
+}
+
+/* mascotte coach */
+.wudu-coach {
+  width: 100%; max-width: 460px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.wudu-coach-mascot { height: 46px; flex: none; filter: drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+.wudu-coach-bubble {
+  background: #fff; border-radius: 14px 14px 14px 4px; padding: 9px 14px;
+  font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 13px; color: var(--ink);
+  box-shadow: 0 4px 12px rgba(60,120,160,.1);
+}
 
 .wudu-content {
-  flex: 1;
+  width: 100%; max-width: 460px;
   display: flex; flex-direction: column; align-items: center;
-  gap: 14px; padding: 20px 20px 32px;
-  overflow-y: auto;
 }
 
-/* Image */
-.wudu-img-placeholder {
-  width: 180px; height: 180px;
-  background: rgba(42,191,191,0.06);
-  border: 1px solid rgba(42,191,191,0.25);
-  border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 72px;
-  flex-shrink: 0;
-}
 .wudu-img-wrap {
-  width: 180px; height: 180px;
-  background: rgba(42,191,191,0.06);
-  border: 1px solid rgba(42,191,191,0.25);
-  border-radius: 20px;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
+  width: 100%; background: #fff; border-radius: 28px;
+  height: 280px; display: grid; place-items: center; overflow: hidden;
+  box-shadow: 0 6px 18px rgba(60,120,160,.12); margin-bottom: 14px;
 }
-.wudu-img { max-width: 100%; max-height: 100%; object-fit: contain; padding: 8px; }
+.wudu-img { height: 250px; object-fit: contain; }
+.wudu-img-placeholder {
+  width: 100%; height: 220px; border-radius: 28px;
+  background: var(--blue-soft); display: grid; place-items: center;
+  font-size: 70px; margin-bottom: 14px;
+}
 
-/* Gouttes de répétition */
-.wudu-times { display: flex; gap: 6px; font-size: 22px; }
-.wudu-drop  { animation: drip 1.4s ease-in-out infinite; }
-.wudu-drop:nth-child(2) { animation-delay: 0.2s; }
-.wudu-drop:nth-child(3) { animation-delay: 0.4s; }
-@keyframes drip { 0%,100% { transform: translateY(0); opacity: 1; } 50% { transform: translateY(4px); opacity: 0.6; } }
+.wudu-times { display: flex; gap: 6px; margin-bottom: 12px; }
+.wudu-drop { font-size: 20px; }
 
-.wudu-step-label { font-size: 20px; font-weight: 700; color: var(--text); }
+.wudu-step-label {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 18px;
+  color: var(--ink); text-align: center; margin-bottom: 12px;
+}
 
 .wudu-arabic {
-  font-size: 28px; color: var(--gold-light);
-  direction: rtl; text-align: center;
-  line-height: 1.8; white-space: pre-line;
+  width: 100%; background: #fff; border-radius: 22px; padding: 18px;
+  box-shadow: 0 4px 14px rgba(60,120,160,.1);
+  font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 28px;
+  color: var(--ink); direction: rtl; text-align: center; line-height: 1.5;
+  white-space: pre-line;
 }
-
 .wudu-translit {
-  font-size: 13px; color: var(--teal-light);
-  font-style: italic; text-align: center;
-  white-space: pre-line; line-height: 1.6;
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 14px;
+  color: var(--blue); text-align: center; margin-top: 10px;
+  white-space: pre-line; line-height: 1.5;
 }
 
 .wudu-desc-toggle {
-  background: none; color: var(--muted); font-size: 13px;
-  padding: 4px 12px; border: 1px solid var(--border); border-radius: 50px;
+  margin-top: 16px; border: none; cursor: pointer;
+  background: var(--blue-soft); color: #2E7DA8;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 13px;
+  padding: 10px 18px; border-radius: 100px;
 }
 .wudu-description {
-  background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 12px; padding: 14px 16px;
-  font-size: 14px; color: var(--text); line-height: 1.6; text-align: center;
-  width: 100%;
+  margin-top: 12px; width: 100%; background: #fff; border-radius: 18px;
+  padding: 16px 18px; font-family: 'Quicksand', sans-serif; font-weight: 500;
+  font-size: 14px; color: #6E8794; line-height: 1.6;
+  box-shadow: 0 4px 14px rgba(60,120,160,.1);
 }
 
 .wudu-next-btn {
-  background: linear-gradient(135deg, var(--teal), #60E8E8);
-  color: #000; font-weight: 700; font-size: 17px;
-  padding: 15px 40px; border-radius: 50px; width: 100%;
+  margin-top: 18px; width: 100%; border: none; cursor: pointer;
+  background: var(--blue); color: #fff;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
+  padding: 16px; border-radius: 18px; box-shadow: 0 6px 0 var(--blue-d);
+  transition: transform .12s, box-shadow .12s;
 }
+.wudu-next-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--blue-d); }
 
-/* Dots */
-.wudu-dots { display: flex; justify-content: center; gap: 4px; padding: 12px; flex-wrap: wrap; }
-.wudu-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--bg-card2); transition: background 0.2s; }
-.wudu-dot.past   { background: var(--teal); }
-.wudu-dot.active { background: var(--teal-light); width: 18px; border-radius: 3px; }
+.wudu-dots {
+  width: 100%; max-width: 460px; display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: center; margin-top: 18px;
+}
+.wudu-dot { width: 8px; height: 8px; border-radius: 50%; background: #C9E6F4; }
+.wudu-dot.past { background: var(--blue); }
+.wudu-dot.active { background: #2E7DA8; width: 22px; border-radius: 100px; }
 
-/* Done */
+/* écran de fin */
 .wudu-done {
-  max-width: 480px; margin: 0 auto; min-height: 100vh;
+  min-height: 100vh; background: linear-gradient(180deg, #4EA8DE, #2E86C0);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 20px; padding: 40px 24px; text-align: center;
+  text-align: center; padding: 40px 30px; font-family: 'Quicksand', sans-serif;
 }
-.wudu-done-icon { font-size: 72px; animation: float 3s ease-in-out infinite; }
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-.wudu-done h2 { font-size: 28px; color: var(--teal-light); }
-.wudu-done p  { color: var(--muted); font-size: 16px; line-height: 1.6; }
+.wudu-done-icon { font-size: 70px; animation: wudu-pop .5s ease; }
+.wudu-done h2 {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 34px; color: #fff; margin-top: 8px;
+}
+.wudu-done p { font-weight: 600; font-size: 16px; color: #DBF0FB; margin-top: 8px; }
 .wudu-done-xp {
-  background: var(--teal); color: var(--gold-light);
-  font-weight: 700; font-size: 18px;
-  padding: 8px 24px; border-radius: 50px;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 22px; color: #2E5C78;
+  background: #fff; padding: 8px 24px; border-radius: 100px; margin: 22px 0;
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
 }
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold), #B8960C);
-  color: #000; font-weight: 700; font-size: 16px;
-  padding: 14px 36px; border-radius: 50px; width: 100%;
+@keyframes wudu-pop { 0%{transform:scale(.4)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+
+.wudu-done .btn-gold {
+  border: none; cursor: pointer; background: #fff; color: #2E86C0;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
+  padding: 15px 32px; border-radius: 100px; box-shadow: 0 6px 16px rgba(0,0,0,.18);
 }

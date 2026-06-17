@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { Sura } from '../data/suras';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
 
 interface Props {
   sura: Sura;
@@ -8,6 +9,8 @@ interface Props {
   onDone: () => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
   const [idx, setIdx] = useState(0);
@@ -25,6 +28,8 @@ export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
 
   if (done) return (
     <div className="mode-done">
+      <Confetti />
+      <img className="celebrate-mascot" src={MASCOT} alt="" />
       <div className="mode-done-emoji">⭐</div>
       <h2>Bravo !</h2>
       <p>Tu as revu tous les versets de {sura.name}</p>

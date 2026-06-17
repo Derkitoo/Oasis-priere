@@ -1,0 +1,31 @@
+/* =========================================================
+   Barre de navigation du bas — partagée (Accueil/Prier/Apprendre/Profil)
+   Affichée par App.tsx sur les écrans Dashboard / Learning / Profile.
+   ========================================================= */
+
+.bnav-shell {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: flex; justify-content: center;
+  pointer-events: none;
+}
+.bnav {
+  pointer-events: auto;
+  width: 100%; max-width: 480px;
+  height: 72px; background: #fff;
+  border-top: 1px solid #EFEBDE;
+  box-shadow: 0 -6px 20px rgba(70,90,50,.08);
+  display: flex; align-items: center; justify-content: space-around;
+  padding: 0 8px;
+  font-family: 'Quicksand', sans-serif;
+}
+.bnav-item {
+  border: none; background: none; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: #B7C0A8; padding: 6px 16px; border-radius: 14px;
+  transition: color .15s, transform .12s;
+}
+.bnav-item:hover { transform: translateY(-2px); }
+.bnav-ico { font-size: 22px; line-height: 1; }
+.bnav-label { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 10px; }
+.bnav-item.active { color: #6FAE54; }
+.bnav-item.active .bnav-label { font-weight: 700; }

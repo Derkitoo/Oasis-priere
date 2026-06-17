@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import './screens/transitions.css';
 import { loadUser, saveUser } from './store';
 import type { UserProfile } from './store';
+import { getCurrentPrayer } from './data/prayers';
 import Onboarding from './screens/Onboarding';
 import Dashboard from './screens/Dashboard';
 import GuidedPrayer from './screens/GuidedPrayer';
 import WuduGuide from './screens/WuduGuide';
 import Learning from './screens/Learning';
 import Profile from './screens/Profile';
+import BottomNav from './screens/BottomNav';
 
 type Screen = 'dashboard' | 'prayer' | 'wudu' | 'learning' | 'profile';
 
@@ -21,12 +24,14 @@ export default function App() {
   const handleUser = (u: UserProfile) => { setUser(u); saveUser(u); };
   const handleReset = () => { localStorage.clear(); setUser(null); };
 
+  // La barre du bas n'apparaît que sur les écrans "onglets"
+  const showNav = screen === 'dashboard' || screen === 'learning' || screen === 'profile';
+
   return (
     <>
       {screen === 'dashboard' && (
         <Dashboard
           user={user}
-          onUser={handleUser}
           onPray={handlePray}
           onWudu={() => setScreen('wudu')}
           onLearn={() => setScreen('learning')}
@@ -52,6 +57,16 @@ export default function App() {
           user={user}
           onBack={() => setScreen('dashboard')}
           onReset={handleReset}
+        />
+      )}
+
+      {showNav && (
+        <BottomNav
+          active={screen}
+          onHome={() => setScreen('dashboard')}
+          onPray={() => handlePray(getCurrentPrayer().id)}
+          onLearn={() => setScreen('learning')}
+          onProfile={() => setScreen('profile')}
         />
       )}
     </>

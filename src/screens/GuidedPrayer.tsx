@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { PRAYERS } from '../data/prayers';
 import { completePrayer } from '../store';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
 import './GuidedPrayer.css';
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   onUser: (u: UserProfile) => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props): React.ReactElement {
   const prayer = PRAYERS.find(p => p.id === prayerId) ?? PRAYERS[0];
@@ -21,6 +24,12 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
   const rakatNum = prayer.steps.slice(0, idx + 1).filter(s => s.isRakatStart).length;
   const total = prayer.steps.length;
   const pct = ((idx + 1) / total) * 100;
+
+  const encouragement =
+    idx === 0 ? 'Bismillah, on commence ! 🤲'
+    : idx >= total - 2 ? 'Plus que quelques étapes 💪'
+    : pct >= 50 ? 'Super, continue ! 🌟'
+    : "Tu gères, Masha'Allah !";
 
   const next = () => {
     setShowDesc(false);
@@ -35,6 +44,8 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
 
   if (done) return (
     <div className="gp-done">
+      <Confetti />
+      <img className="celebrate-mascot" src={MASCOT} alt="" />
       <div className="done-icon">🌙</div>
       <h2>Masha'Allah !</h2>
       <p>Tu as accompli la prière {prayer.name}</p>
@@ -57,13 +68,19 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
         <div className="gp-fill" style={{ width: `${pct}%` }} />
       </div>
 
+      {/* Mascotte coach */}
+      <div className="gp-coach">
+        <img className="gp-coach-mascot" src={MASCOT} alt="" />
+        <div className="gp-coach-bubble">{encouragement}</div>
+      </div>
+
       {/* Contenu principal */}
       <div className="gp-content">
-        {/* Image de posture (du PDF) */}
+        {/* Image de posture */}
         <div className="gp-posture-wrap">
           <img
             className="gp-posture-img"
-            src={`/postures/${step.image}`}
+            src={`${import.meta.env.BASE_URL}postures/${step.image}`}
             alt={step.label}
           />
         </div>

@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import type { Sura } from '../data/suras';
 import { SURAS } from '../data/suras';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
 
 interface Props {
   sura: Sura;
@@ -9,6 +10,8 @@ interface Props {
   onDone: (score: number, total: number) => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 // 'ar_to_fr'  : montre arabe   → choisir traduction FR  (arabophone)
 // 'tr_to_fr'  : montre translit → choisir traduction FR  (francophone)
@@ -18,8 +21,8 @@ type QType = 'ar_to_fr' | 'tr_to_fr' | 'fr_to_tr';
 interface Question {
   verseIdx: number;
   type: QType;
-  prompt: string;    // ce qu'on montre
-  options: string[]; // 3 choix
+  prompt: string;
+  options: string[];
   correctIdx: number;
 }
 
@@ -42,7 +45,6 @@ function buildQuestions(sura: Sura, readArabic: UserProfile['readArabic']): Ques
   return indices.map((vIdx, i) => {
     const verse = sura.verses[vIdx];
 
-    // Francophones alternent tr_to_fr et fr_to_tr
     const type: QType = isFranco
       ? (i % 2 === 0 ? 'tr_to_fr' : 'fr_to_tr')
       : 'ar_to_fr';
@@ -57,7 +59,6 @@ function buildQuestions(sura: Sura, readArabic: UserProfile['readArabic']): Ques
       const options = shuffle([verse.translation, ...wrongs]);
       return { verseIdx: vIdx, type, prompt: verse.transliteration, options, correctIdx: options.indexOf(verse.translation) };
     }
-    // fr_to_tr
     const wrongs = shuffle(otherVerses.map(v => v.transliteration)).slice(0, 2);
     const options = shuffle([verse.transliteration, ...wrongs]);
     return { verseIdx: vIdx, type, prompt: verse.translation, options, correctIdx: options.indexOf(verse.transliteration) };
@@ -102,6 +103,8 @@ export default function QuizMode({ sura, readArabic, onDone, onBack }: Props) {
     const msg   = score === total ? 'Parfait !' : score >= 3 ? 'Très bien !' : "Continue à t'entraîner !";
     return (
       <div className="mode-done">
+        <Confetti />
+        <img className="celebrate-mascot" src={MASCOT} alt="" />
         <div className="mode-done-emoji">{emoji}</div>
         <h2>{msg}</h2>
         <div className="quiz-final-score">{score}<span>/{total}</span></div>
@@ -111,7 +114,6 @@ export default function QuizMode({ sura, readArabic, onDone, onBack }: Props) {
     );
   }
 
-  // Prompt styling: arabe = direction rtl, translit/fr = normal
   const promptIsArabic = q.type === 'ar_to_fr';
   const promptIsFr     = q.type === 'fr_to_tr';
 
@@ -129,16 +131,13 @@ export default function QuizMode({ sura, readArabic, onDone, onBack }: Props) {
       <div className="quiz-body">
         <p className="quiz-question">{QUESTION_LABEL[q.type]}</p>
 
-        {/* Prompt principal */}
         {promptIsArabic && <div className="quiz-arabic">{q.prompt}</div>}
         {promptIsFr     && <div className="quiz-prompt-fr">{q.prompt}</div>}
         {!promptIsArabic && !promptIsFr && <div className="quiz-translit-prompt">{q.prompt}</div>}
 
-        {/* Aide contextuelle : francophone voit toujours l'arabe en petit */}
         {readArabic === 'no' && q.type !== 'ar_to_fr' && (
           <div className="quiz-arabic-hint">{verse.arabic}</div>
         )}
-        {/* Arabophone : rappel translittération sous l'arabe */}
         {readArabic === 'yes' && (
           <div className="quiz-translit-hint">{verse.transliteration}</div>
         )}
