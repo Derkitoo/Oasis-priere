@@ -1,0 +1,25 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #060C1A;
+  --bg-card: #0D1B2E;
+  --bg-card2: #112240;
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --teal: #1B6B6B;
+  --teal-light: #2ABFBF;
+  --text: #F0EDE6;
+  --muted: #8899AA;
+  --border: rgba(212,175,55,0.2);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+#root { min-height: 100vh; }
+button { cursor: pointer; font-family: inherit; border: none; }
+input { font-family: inherit; }

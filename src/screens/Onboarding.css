@@ -1,0 +1,103 @@
+.onboard {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%);
+}
+
+.onboard-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+
+.onboard-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.mosque-icon { font-size: 64px; }
+
+h1 { color: var(--gold-light); font-size: 28px; }
+h2 { color: var(--gold-light); font-size: 22px; }
+
+.onboard-step p { color: var(--muted); font-size: 16px; line-height: 1.6; }
+
+.step-num { color: var(--muted); font-size: 13px; }
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #B8960C);
+  color: #000;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px 36px;
+  border-radius: 50px;
+  transition: opacity 0.2s;
+  width: 100%;
+}
+.btn-gold:hover { opacity: 0.9; }
+.btn-gold:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.onboard-input {
+  width: 100%;
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: var(--text);
+  font-size: 18px;
+  outline: none;
+  text-align: center;
+}
+.onboard-input:focus { border-color: var(--gold); }
+
+.age-selector {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.age-btn {
+  background: var(--bg-card2);
+  border: 1px solid var(--border);
+  color: var(--gold);
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+.age-btn:hover { background: var(--teal); }
+.age-display { font-size: 32px; font-weight: 700; color: var(--gold-light); min-width: 80px; }
+
+.level-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.level-card {
+  background: var(--bg-card2);
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  transition: border-color 0.2s, background 0.2s;
+}
+.level-card:hover { border-color: var(--teal-light); }
+.level-card.selected { border-color: var(--gold); background: rgba(212,175,55,0.08); }
+.level-card strong { color: var(--text); font-size: 15px; }
+.level-card small { color: var(--muted); font-size: 13px; display: block; }
+.level-emoji { font-size: 28px; }
+
+.onboard-hint { color: var(--muted); font-size: 14px; margin-top: -8px; }
