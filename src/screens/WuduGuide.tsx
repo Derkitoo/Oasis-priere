@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { WUDU_STEPS } from '../data/wudu';
 import { addXP } from '../store';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
 import './WuduGuide.css';
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
   onUser: (u: UserProfile) => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactElement {
   const [idx, setIdx] = useState(0);
@@ -18,6 +21,12 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
   const step = WUDU_STEPS[idx];
   const total = WUDU_STEPS.length;
   const pct = ((idx + 1) / total) * 100;
+
+  const encouragement =
+    idx === 0 ? 'On se purifie, bismillah ! 💧'
+    : idx >= total - 2 ? 'Presque fini, bravo ! 💪'
+    : pct >= 50 ? 'Tu fais ça très bien ! 🌟'
+    : 'Continue doucement 💦';
 
   const next = () => {
     setShowDesc(false);
@@ -32,6 +41,8 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
 
   if (done) return (
     <div className="wudu-done">
+      <Confetti />
+      <img className="celebrate-mascot" src={MASCOT} alt="" />
       <div className="wudu-done-icon">💧</div>
       <h2>Alhamdulillâh !</h2>
       <p>Tu es en état de pureté.<br />Tu peux maintenant faire la prière.</p>
@@ -52,6 +63,12 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
       {/* Barre de progression */}
       <div className="wudu-progress">
         <div className="wudu-fill" style={{ width: `${pct}%` }} />
+      </div>
+
+      {/* Mascotte coach */}
+      <div className="wudu-coach">
+        <img className="wudu-coach-mascot" src={MASCOT} alt="" />
+        <div className="wudu-coach-bubble">{encouragement}</div>
       </div>
 
       {/* Contenu */}

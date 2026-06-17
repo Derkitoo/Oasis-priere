@@ -76,7 +76,7 @@ const buildRakatSteps = (
     description:
       "Dis « Allâhou Akbar » en t'inclinant. Pose les mains sur les genoux, dos bien droit, tête dans l'axe du dos. Répète 3 fois la formule.",
     posture: 'ruku',
-    image: 'ruku_0.jpg',
+    image: 'ruku_0.png',
   });
 
   // --- I'tidal ---
@@ -88,7 +88,7 @@ const buildRakatSteps = (
     description:
       'Redresse-toi en disant « Sami\'aLlâhou liman Hamidah ». Une fois bien debout, dis « Rabbanê wa lakal Hamd ».',
     posture: 'itidal',
-    image: 'ruku_2.jpg',
+    image: 'ruku_2.png',
   });
 
   // --- 1er Sujoud ---

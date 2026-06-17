@@ -1,0 +1,28 @@
+/* =========================================================
+   Transitions d'entrée entre écrans
+   Importé une fois dans App.tsx. Chaque écran s'anime à son montage.
+   ========================================================= */
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(10px) scale(.995); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.dash,
+.gp,
+.wudu,
+.learn,
+.profile,
+.onboard,
+.mode-wrap,
+.mode-done:not(.mode-btn) {
+  animation: screen-in .34s cubic-bezier(.22, .61, .36, 1) both;
+}
+
+/* respecte la préférence "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+  .dash, .gp, .wudu, .learn, .profile, .onboard, .mode-wrap, .mode-done:not(.mode-btn),
+  .confetti-piece, .celebrate-mascot, .next-mascot, .onboard-mascot {
+    animation: none !important;
+  }
+}

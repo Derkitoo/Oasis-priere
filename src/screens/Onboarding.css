@@ -1,103 +1,133 @@
+/* =========================================================
+   Onboarding — restyle (mélange A+B+C) + mascotte
+   Remplace Onboarding.tsx ET Onboarding.css
+   ========================================================= */
+
 .onboard {
+  --green: #6FAE54; --green-d: #5A9645; --green-deep: #4C8038;
+  --green-soft: #E8F2DD; --cream: #FFF8EC; --ink: #3D4A35; --muted: #9BA889;
+  --yellow: #F4C24E; --yellow-d: #D9A52E;
+
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--cream);
+  font-family: 'Quicksand', sans-serif;
+  display: flex; align-items: center; justify-content: center;
   padding: 24px;
-  background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 70%);
+}
+/* écran d'accueil = fond vert plein */
+.onboard-welcome {
+  background: linear-gradient(180deg, #6FAE54, #5A9645);
 }
 
 .onboard-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 48px 40px;
-  width: 100%;
-  max-width: 480px;
-  text-align: center;
+  width: 100%; max-width: 420px;
 }
 
 .onboard-step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  background: #fff;
+  border-radius: 30px;
+  padding: 32px 26px;
+  box-shadow: 0 18px 40px rgba(60,80,40,.16);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+/* l'accueil n'a pas de carte blanche : contenu directement sur le vert */
+.onboard-step-welcome {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
 }
 
-.mosque-icon { font-size: 64px; }
-
-h1 { color: var(--gold-light); font-size: 28px; }
-h2 { color: var(--gold-light); font-size: 22px; }
-
-.onboard-step p { color: var(--muted); font-size: 16px; line-height: 1.6; }
-
-.step-num { color: var(--muted); font-size: 13px; }
-
-.btn-gold {
-  background: linear-gradient(135deg, var(--gold), #B8960C);
-  color: #000;
-  font-weight: 700;
-  font-size: 16px;
-  padding: 14px 36px;
-  border-radius: 50px;
-  transition: opacity 0.2s;
-  width: 100%;
+.onboard-mascot {
+  height: 240px; object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,.22));
+  animation: ob-floaty 4.5s ease-in-out infinite;
 }
-.btn-gold:hover { opacity: 0.9; }
-.btn-gold:disabled { opacity: 0.4; cursor: not-allowed; }
+@keyframes ob-floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+
+.mosque-icon { font-size: 34px; margin-top: 8px; }
+.onboard-step-welcome h1 {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 34px;
+  color: #fff; margin-top: 6px; line-height: 1.05;
+}
+.onboard-step-welcome p {
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 15.5px;
+  color: #E4F2D8; margin-top: 12px; max-width: 280px;
+}
+.onboard-step-welcome .btn-gold { margin-top: 26px; }
+
+.onboard-dots { display: flex; gap: 8px; margin-top: 24px; }
+.od { width: 8px; height: 8px; border-radius: 100px; background: rgba(255,255,255,.45); }
+.od.on { width: 26px; background: #fff; }
+
+/* étapes du formulaire */
+.step-num {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 12px;
+  color: var(--green-d); background: var(--green-soft);
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 16px;
+}
+.onboard-step h2 {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 23px;
+  color: var(--ink); line-height: 1.15;
+}
+.onboard-hint {
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 13px;
+  color: var(--muted); margin-top: 6px;
+}
 
 .onboard-input {
-  width: 100%;
-  background: var(--bg-card2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 18px;
-  color: var(--text);
-  font-size: 18px;
-  outline: none;
-  text-align: center;
+  width: 100%; margin-top: 20px;
+  border: 2px solid #E4E9DA; border-radius: 16px;
+  background: #FBFAF4; padding: 15px 18px;
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 16px;
+  color: var(--ink); outline: none; text-align: center;
+  transition: border-color .15s;
 }
-.onboard-input:focus { border-color: var(--gold); }
+.onboard-input:focus { border-color: var(--green); }
 
 .age-selector {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+  display: flex; align-items: center; gap: 18px; margin: 24px 0;
 }
 .age-btn {
-  background: var(--bg-card2);
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-size: 24px;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  transition: background 0.2s;
+  width: 54px; height: 54px; border: none; border-radius: 18px;
+  background: var(--green-soft); color: var(--green-d);
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 26px; cursor: pointer;
+  transition: transform .12s;
 }
-.age-btn:hover { background: var(--teal); }
-.age-display { font-size: 32px; font-weight: 700; color: var(--gold-light); min-width: 80px; }
+.age-btn:hover { transform: scale(1.08); }
+.age-display {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 28px;
+  color: var(--ink); min-width: 110px;
+}
 
-.level-choices {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-}
+.level-choices { width: 100%; display: flex; flex-direction: column; gap: 11px; margin: 20px 0; }
 .level-card {
-  background: var(--bg-card2);
-  border: 2px solid var(--border);
-  border-radius: 16px;
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  text-align: left;
-  transition: border-color 0.2s, background 0.2s;
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  border: 2px solid #EAEFE0; border-radius: 18px; background: #FBFAF4;
+  padding: 14px 16px; cursor: pointer; transition: all .15s;
 }
-.level-card:hover { border-color: var(--teal-light); }
-.level-card.selected { border-color: var(--gold); background: rgba(212,175,55,0.08); }
-.level-card strong { color: var(--text); font-size: 15px; }
-.level-card small { color: var(--muted); font-size: 13px; display: block; }
-.level-emoji { font-size: 28px; }
+.level-card .level-emoji { font-size: 26px; }
+.level-card strong {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
+  color: var(--ink); margin-top: 4px;
+}
+.level-card small {
+  font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 12px;
+  color: var(--muted); margin-top: 2px;
+}
+.level-card.selected {
+  border-color: var(--green); background: var(--green-soft);
+  transform: translateY(-2px); box-shadow: 0 8px 18px rgba(111,174,84,.18);
+}
 
-.onboard-hint { color: var(--muted); font-size: 14px; margin-top: -8px; }
+.onboard .btn-gold {
+  border: none; cursor: pointer;
+  background: var(--yellow); color: #5A4112;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
+  padding: 15px 36px; border-radius: 100px;
+  box-shadow: 0 6px 0 var(--yellow-d);
+  transition: transform .12s, box-shadow .12s;
+}
+.onboard .btn-gold:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--yellow-d); }
+.onboard .btn-gold:disabled { opacity: .5; cursor: not-allowed; box-shadow: 0 6px 0 var(--yellow-d); }
+/* dans le formulaire le bouton est pleine largeur */
+.onboard-step:not(.onboard-step-welcome) .btn-gold { width: 100%; }
