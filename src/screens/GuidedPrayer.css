@@ -125,16 +125,33 @@
   box-shadow: 0 4px 14px rgba(70,90,50,.06);
 }
 
-.gp-next-btn {
+.gp-step-actions {
   margin-top: 18px; width: 100%;
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 12px;
+}
+.gp-step-actions.first-step { grid-template-columns: 1fr; }
+.gp-previous-btn,
+.gp-next-btn {
   border: none; cursor: pointer;
-  background: var(--green); color: #fff;
   font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
-  padding: 16px; border-radius: 18px;
-  box-shadow: 0 6px 0 var(--green-deep);
+  padding: 16px 12px; border-radius: 18px;
   transition: transform .12s, box-shadow .12s;
 }
+.gp-previous-btn {
+  background: #fff; color: var(--green-d);
+  border: 2px solid var(--green-soft);
+  box-shadow: 0 5px 0 #D5E5C9;
+}
+.gp-next-btn {
+  background: var(--green); color: #fff;
+  box-shadow: 0 6px 0 var(--green-deep);
+}
+.gp-previous-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 #D5E5C9; }
 .gp-next-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--green-deep); }
+
+@media (max-width: 370px) {
+  .gp-step-actions { grid-template-columns: 1fr; }
+}
 
 /* dots */
 .gp-dots {

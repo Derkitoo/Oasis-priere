@@ -8,13 +8,20 @@ export const playAudio = (url: string) => {
 };
 
 // TTS de secours pour les textes non-coraniques (fonctionne sur Android/iOS)
-export const speak = (text: string, lang = 'ar-SA') => {
-  if (!('speechSynthesis' in window)) return;
+export const speak = (text: string, lang = 'ar-SA', onEnd?: () => void) => {
+  if (!('speechSynthesis' in window)) return false;
   window.speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang;
   u.rate = 0.7;
+  u.onend = () => onEnd?.();
+  u.onerror = () => onEnd?.();
   window.speechSynthesis.speak(u);
+  return true;
+};
+
+export const stopSpeaking = () => {
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 };
 
 // Détecte si un texte contient des caractères arabes réels (pas juste des chiffres)

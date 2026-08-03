@@ -48,6 +48,12 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
     }
   };
 
+  const previous = () => {
+    if (idx === 0) return;
+    setShowDesc(false);
+    setIdx(i => i - 1);
+  };
+
   if (done) return (
     <div className="gp-done">
       <Confetti />
@@ -115,10 +121,17 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
           <div className="gp-description">{step.description}</div>
         )}
 
-        {/* Bouton suivant */}
-        <button className="gp-next-btn" onClick={next}>
-          {idx < total - 1 ? 'Suivant →' : 'Terminer la prière ✓'}
-        </button>
+        {/* Navigation entre les étapes */}
+        <div className={`gp-step-actions ${idx === 0 ? 'first-step' : ''}`}>
+          {idx > 0 && (
+            <button className="gp-previous-btn" onClick={previous}>
+              ← Précédent
+            </button>
+          )}
+          <button className="gp-next-btn" onClick={next}>
+            {idx < total - 1 ? 'Suivant →' : 'Terminer la prière ✓'}
+          </button>
+        </div>
       </div>
 
       {/* Points de navigation */}

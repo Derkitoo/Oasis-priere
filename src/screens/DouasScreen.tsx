@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DOUAS } from '../data/douas';
+import { speak, stopSpeaking } from '../utils/speech';
 import './DouasScreen.css';
 
 interface Props {
@@ -8,6 +9,20 @@ interface Props {
 
 export default function DouasScreen({ onBack }: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [playingId, setPlayingId] = useState<string | null>(null);
+
+  useEffect(() => () => stopSpeaking(), []);
+
+  const toggleAudio = (id: string, arabic: string) => {
+    if (playingId === id) {
+      stopSpeaking();
+      setPlayingId(null);
+      return;
+    }
+    setPlayingId(id);
+    const started = speak(arabic, 'ar-SA', () => setPlayingId(null));
+    if (!started) setPlayingId(null);
+  };
 
   const filtered = selectedCategory === 'all'
     ? DOUAS
@@ -43,7 +58,16 @@ export default function DouasScreen({ onBack }: Props) {
         <div className="douas-list">
           {filtered.map(d => (
             <div key={d.id} className="doua-card">
-              <div className="doua-title">{d.title}</div>
+              <div className="doua-title-row">
+                <div className="doua-title">{d.title}</div>
+                <button
+                  className={`doua-audio-btn ${playingId === d.id ? 'playing' : ''}`}
+                  onClick={() => toggleAudio(d.id, d.arabic)}
+                  aria-label={playingId === d.id ? `Arrêter ${d.title}` : `Écouter ${d.title}`}
+                >
+                  {playingId === d.id ? '■ Arrêter' : '🔊 Écouter'}
+                </button>
+              </div>
               <div className="doua-arabic">{d.arabic}</div>
               <div className="doua-trans">{d.transliteration}</div>
               <div className="doua-translation">{d.translation}</div>

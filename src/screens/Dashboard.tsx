@@ -3,6 +3,24 @@ import type { UserProfile } from '../store';
 import { PRAYERS, getCurrentPrayer } from '../data/prayers';
 import './Dashboard.css';
 
+const KAABA = { latitude: 21.4225, longitude: 39.8262 };
+
+const qiblaBearingFrom = (latitude: number, longitude: number) => {
+  const toRad = (value: number) => value * Math.PI / 180;
+  const toDeg = (value: number) => value * 180 / Math.PI;
+  const lat1 = toRad(latitude);
+  const lat2 = toRad(KAABA.latitude);
+  const deltaLongitude = toRad(KAABA.longitude - longitude);
+  const y = Math.sin(deltaLongitude) * Math.cos(lat2);
+  const x = Math.cos(lat1) * Math.sin(lat2)
+    - Math.sin(lat1) * Math.cos(lat2) * Math.cos(deltaLongitude);
+  return (toDeg(Math.atan2(y, x)) + 360) % 360;
+};
+
+type CompassOrientationEvent = DeviceOrientationEvent & {
+  webkitCompassHeading?: number;
+};
+
 interface Props {
   user: UserProfile;
   onPray: (prayerId: string) => void;
@@ -29,6 +47,9 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
   const [animXp, setAnimXp] = useState(0);
   const [barPct, setBarPct] = useState(0);
   const [showQibla, setShowQibla] = useState(false);
+  const [qiblaBearing, setQiblaBearing] = useState<number | null>(null);
+  const [deviceHeading, setDeviceHeading] = useState<number | null>(null);
+  const [qiblaMessage, setQiblaMessage] = useState('Recherche de ta position…');
 
   // Étape de l'Arbre de la Foi
   const treeLeaves = user.xp + (user.completedPrayers.length * 10);
@@ -56,9 +77,69 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
     return () => { cancelAnimationFrame(raf); clearTimeout(id); };
   }, [user.xp, xpPct]);
 
-  const characterImg = user.avatarChoice === 'girl'
-    ? `${import.meta.env.BASE_URL}avatars/girl_full.png`
-    : `${import.meta.env.BASE_URL}avatars/boy_full.png`;
+  useEffect(() => {
+    if (!showQibla) return;
+
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => {
+        setQiblaBearing(qiblaBearingFrom(coords.latitude, coords.longitude));
+        setQiblaMessage('Tourne doucement le téléphone pour aligner la flèche.');
+      },
+      error => {
+        const message = error.code === error.PERMISSION_DENIED
+          ? 'Autorise la localisation pour trouver la Qibla.'
+          : 'Position introuvable. Vérifie le GPS puis réessaie.';
+        setQiblaMessage(message);
+      },
+      { enableHighAccuracy: true, timeout: 12000, maximumAge: 300000 },
+    );
+
+    const updateHeading = (event: Event) => {
+      const orientation = event as CompassOrientationEvent;
+      const heading = typeof orientation.webkitCompassHeading === 'number'
+        ? orientation.webkitCompassHeading
+        : typeof orientation.alpha === 'number'
+          ? (360 - orientation.alpha) % 360
+          : null;
+      if (heading !== null) setDeviceHeading(heading);
+    };
+
+    window.addEventListener('deviceorientationabsolute', updateHeading);
+    window.addEventListener('deviceorientation', updateHeading);
+    return () => {
+      window.removeEventListener('deviceorientationabsolute', updateHeading);
+      window.removeEventListener('deviceorientation', updateHeading);
+    };
+  }, [showQibla]);
+
+  const openQibla = async () => {
+    setQiblaBearing(null);
+    setDeviceHeading(null);
+    setQiblaMessage(navigator.geolocation
+      ? 'Recherche de ta position…'
+      : 'La localisation n’est pas disponible sur cet appareil.');
+    const orientationApi = window.DeviceOrientationEvent as (typeof DeviceOrientationEvent & {
+      requestPermission?: () => Promise<'granted' | 'denied'>;
+    }) | undefined;
+    if (typeof orientationApi?.requestPermission === 'function') {
+      try {
+        await orientationApi.requestPermission();
+      } catch {
+        // La direction fixe reste disponible même si le capteur est refusé.
+      }
+    }
+    setShowQibla(true);
+  };
+
+  const needleRotation = qiblaBearing === null
+    ? 0
+    : qiblaBearing - (deviceHeading ?? 0);
+  const alignment = qiblaBearing !== null && deviceHeading !== null
+    ? Math.abs(((qiblaBearing - deviceHeading + 540) % 360) - 180)
+    : null;
+
+  const characterImg = `${import.meta.env.BASE_URL}postures/${user.avatarChoice === 'girl' ? 'girl' : 'boy'}_ruku_2.png`;
   const characterAvatar = user.avatarChoice === 'girl'
     ? `${import.meta.env.BASE_URL}avatars/girl.png`
     : `${import.meta.env.BASE_URL}avatars/boy.png`;
@@ -81,7 +162,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
             <span className="dash-streak-ico">🔥</span>
             <span>{user.streak} jour{user.streak > 1 ? 's' : ''} de suite !</span>
           </div>
-          <button className="qibla-btn" onClick={() => setShowQibla(true)}>
+          <button className="qibla-btn" onClick={openQibla}>
             🧭 Qibla
           </button>
         </div>
@@ -183,11 +264,25 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
             <h3>Boussole Qibla 🧭</h3>
             <p>Direction vers la Ka'aba à La Mecque</p>
             <div className="qibla-compass">
+              <span className="compass-north">N</span>
               <div className="compass-ring">
-                <div className="compass-needle">🕋</div>
+                <div className="compass-needle" style={{ transform: `rotate(${needleRotation}deg)` }}>
+                  <span className="needle-arrow">▲</span>
+                  <span className="needle-kaaba">🕋</span>
+                </div>
               </div>
             </div>
-            <div className="qibla-status">✨ Alignement parfait vers la Qibla</div>
+            <div className={`qibla-status ${alignment !== null && alignment < 8 ? 'aligned' : ''}`}>
+              {alignment !== null && alignment < 8
+                ? '✨ Alignement parfait vers la Qibla'
+                : qiblaMessage}
+            </div>
+            {qiblaBearing !== null && (
+              <div className="qibla-bearing">
+                Direction : {Math.round(qiblaBearing)}° depuis le nord
+                {deviceHeading === null && <span> · active le capteur de mouvement pour la boussole en direct</span>}
+              </div>
+            )}
           </div>
         </div>
       )}

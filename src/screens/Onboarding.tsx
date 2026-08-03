@@ -5,7 +5,6 @@ import './Onboarding.css';
 
 interface Props { onDone: (u: UserProfile) => void; }
 
-const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 const BOY_AVATAR = `${import.meta.env.BASE_URL}avatars/boy.png`;
 const GIRL_AVATAR = `${import.meta.env.BASE_URL}avatars/girl.png`;
 
@@ -30,10 +29,15 @@ export default function Onboarding({ onDone }: Props) {
 
         {step === 0 && (
           <div className="onboard-step onboard-step-welcome">
-            <img className="onboard-mascot" src={MASCOT} alt="" />
-            <div className="mosque-icon">🕌</div>
+            <div className="onboard-brand-visual" aria-hidden="true">
+              <span className="brand-star brand-star-one">✦</span>
+              <span className="brand-star brand-star-two">✦</span>
+              <span className="brand-moon">☾</span>
+              <span className="brand-mosque">🕌</span>
+            </div>
+            <div className="onboard-kicker">Bienvenue dans</div>
             <h1>L'Oasis de la Prière</h1>
-            <p>Apprends la prière pas à pas, avec amour et patience.</p>
+            <p>Un parcours doux et ludique pour apprendre la prière, à ton rythme.</p>
             <button className="btn-gold" onClick={() => setStep(1)}>Commencer ✨</button>
             <div className="onboard-dots">
               <span className="od on" /><span className="od" /><span className="od" /><span className="od" /><span className="od" />

@@ -36,17 +36,31 @@
   padding: 0;
 }
 
-.onboard-mascot {
-  height: 240px; object-fit: contain;
-  filter: drop-shadow(0 14px 22px rgba(0,0,0,.22));
+.onboard-brand-visual {
+  position: relative; width: 190px; height: 190px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 50% 42%, rgba(255,255,255,.28), rgba(255,255,255,.08) 68%);
+  border: 2px solid rgba(255,255,255,.24);
+  box-shadow: 0 18px 40px rgba(52,91,36,.3), inset 0 0 35px rgba(255,255,255,.12);
   animation: ob-floaty 4.5s ease-in-out infinite;
 }
-@keyframes ob-floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+.brand-moon {
+  position: absolute; top: 20px; font-size: 74px; line-height: 1;
+  color: #FCEFC7; text-shadow: 0 6px 18px rgba(70,63,31,.2);
+}
+.brand-mosque { position: absolute; bottom: 27px; font-size: 63px; filter: drop-shadow(0 7px 8px rgba(36,65,25,.22)); }
+.brand-star { position: absolute; color: #FCEFC7; font-size: 22px; }
+.brand-star-one { top: 44px; left: 33px; }
+.brand-star-two { top: 74px; right: 30px; font-size: 15px; }
+@keyframes ob-floaty { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 
-.mosque-icon { font-size: 34px; margin-top: 8px; }
+.onboard-kicker {
+  margin-top: 26px; color: #DDF0CE; text-transform: uppercase; letter-spacing: 2.2px;
+  font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 800;
+}
 .onboard-step-welcome h1 {
   font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 34px;
-  color: #fff; margin-top: 6px; line-height: 1.05;
+  color: #fff; margin-top: 5px; line-height: 1.05;
 }
 .onboard-step-welcome p {
   font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 15.5px;
