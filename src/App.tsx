@@ -59,6 +59,7 @@ export default function App() {
       {screen === 'profile' && (
         <Profile
           user={user}
+          onUser={handleUser}
           onBack={() => setScreen('dashboard')}
           onReset={handleReset}
         />

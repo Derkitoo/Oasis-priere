@@ -12,6 +12,8 @@ export interface UserProfile {
   readArabic?: 'yes' | 'partial' | 'no';
   tasbihCount?: number;
   unlockedDouas?: string[];
+  selectedTheme?: string;
+  unlockedThemes?: string[];
 }
 
 const KEY = 'oasis_user';
@@ -45,6 +47,8 @@ export const createUser = (
   readArabic,
   tasbihCount: 0,
   unlockedDouas: [],
+  selectedTheme: 'default',
+  unlockedThemes: ['default'],
 });
 
 export const addXP = (user: UserProfile, amount: number): UserProfile => {
@@ -88,6 +92,28 @@ export const completeTasbihSession = (user: UserProfile, count: number): UserPro
     ...user,
     xp: user.xp + 25,
     tasbihCount: (user.tasbihCount ?? 0) + count,
+  };
+  saveUser(updated);
+  return updated;
+};
+
+export const buyTheme = (user: UserProfile, themeId: string, price: number): UserProfile => {
+  if (user.xp < price) return user;
+  const unlocked = [...new Set([...(user.unlockedThemes ?? ['default']), themeId])];
+  const updated: UserProfile = {
+    ...user,
+    xp: user.xp - price,
+    selectedTheme: themeId,
+    unlockedThemes: unlocked,
+  };
+  saveUser(updated);
+  return updated;
+};
+
+export const equipTheme = (user: UserProfile, themeId: string): UserProfile => {
+  const updated: UserProfile = {
+    ...user,
+    selectedTheme: themeId,
   };
   saveUser(updated);
   return updated;

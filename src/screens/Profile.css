@@ -1,6 +1,5 @@
 /* =========================================================
-   Profil — restyle (mélange A+B+C) + badges réels
-   Remplace Profile.tsx ET Profile.css
+   Profil — restyle (mélange A+B+C) + badges + Boutique & Calendrier
    ========================================================= */
 
 .profile {
@@ -58,11 +57,56 @@
 .p-val { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 22px; color: var(--ink); }
 .p-label { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 11px; color: var(--muted); }
 
-.profile-badges-title {
+.profile-section-title, .profile-badges-title {
   width: 100%; text-align: left;
   font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px;
   color: var(--ink); margin-bottom: 12px;
 }
+
+/* Boutique */
+.theme-store-grid {
+  width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+}
+.theme-card {
+  background: #fff; border-radius: 18px; padding: 12px;
+  display: flex; flex-direction: column; gap: 8px;
+  border: 2px solid #E9DCC4; box-shadow: 0 4px 12px rgba(70,90,50,.05);
+}
+.theme-card.equipped {
+  border-color: #6FAE54; background: #FFFDF7;
+}
+.theme-preview {
+  width: 100%; height: 44px; border-radius: 12px;
+}
+.theme-name {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 13px; color: var(--ink);
+}
+.theme-price {
+  font-size: 11px; color: var(--muted); font-weight: 600;
+}
+.btn-theme {
+  border: none; border-radius: 100px; padding: 7px 12px;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 11.5px; cursor: pointer;
+}
+.btn-equipped { background: #E8F2DD; color: #5A9645; }
+.btn-equip { background: #FCEFC7; color: #A0772A; }
+.btn-buy { background: #6FAE54; color: #fff; }
+
+/* Calendrier 30 Jours */
+.calendar-30days-grid {
+  width: 100%; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+}
+.cal-day-cell {
+  background: #fff; border-radius: 12px; padding: 8px 4px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  border: 1.5px solid #EEF3E6;
+}
+.cal-day-cell.full { background: #E8F2DD; border-color: #6FAE54; }
+.cal-day-cell.partial { background: #FFF3D6; border-color: #F4C24E; }
+.cal-day-num { font-size: 10px; font-weight: 700; color: var(--muted); }
+.cal-day-ico { font-size: 14px; }
+
+/* Badges */
 .profile-badges {
   width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px;
 }
