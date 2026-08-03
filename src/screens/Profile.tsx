@@ -8,14 +8,19 @@ export default function Profile({ user, onBack, onReset }: Props) {
   const suraCount = Object.keys(user.suraStars ?? {}).length;
 
   const badges = [
-    { ico: '🌙', label: '1ère prière',  on: user.completedPrayers.length >= 1, cls: 'b-moon' },
-    { ico: '💧', label: 'Wudu',         on: user.xp >= 30,                      cls: 'b-water' },
-    { ico: '🔥', label: 'Série 3j',     on: user.streak >= 3,                   cls: 'b-fire' },
-    { ico: '⭐', label: '100 XP',       on: user.xp >= 100,                     cls: 'b-star' },
-    { ico: '📖', label: '1 sourate',    on: suraCount >= 1,                     cls: 'b-book' },
-    { ico: '🕌', label: '10 prières',   on: user.completedPrayers.length >= 10, cls: 'b-moon' },
-    { ico: '🏅', label: '500 XP',       on: user.xp >= 500,                     cls: 'b-star' },
-    { ico: '🌟', label: 'Série 7j',     on: user.streak >= 7,                   cls: 'b-fire' },
+    { ico: '🌙', label: '1ère prière',   on: user.completedPrayers.length >= 1, cls: 'b-moon' },
+    { ico: '💧', label: 'Ablutions',    on: user.xp >= 30,                      cls: 'b-water' },
+    { ico: '🔥', label: 'Série 3j',      on: user.streak >= 3,                   cls: 'b-fire' },
+    { ico: '⭐', label: '100 XP',        on: user.xp >= 100,                     cls: 'b-star' },
+    { ico: '📖', label: '1 sourate',     on: suraCount >= 1,                     cls: 'b-book' },
+    { ico: '🛡️', label: 'Al-Falaq',      on: Boolean(user.suraStars?.['falaq']), cls: 'b-shield' },
+    { ico: '🕊️', label: 'An-Nas',        on: Boolean(user.suraStars?.['nas']),   cls: 'b-bird' },
+    { ico: '⏳', label: 'Al-Asr',        on: Boolean(user.suraStars?.['asr']),   cls: 'b-time' },
+    { ico: '📚', label: '7 sourates',    on: suraCount >= 7,                     cls: 'b-book' },
+    { ico: '🕌', label: '10 prières',    on: user.completedPrayers.length >= 10, cls: 'b-moon' },
+    { ico: '🏅', label: '500 XP',        on: user.xp >= 500,                     cls: 'b-star' },
+    { ico: '👑', label: '1000 XP',       on: user.xp >= 1000,                    cls: 'b-crown' },
+    { ico: '🌟', label: 'Série 7j',      on: user.streak >= 7,                   cls: 'b-fire' },
   ];
 
   return (
@@ -37,7 +42,7 @@ export default function Profile({ user, onBack, onReset }: Props) {
           <div className="p-stat"><span className="p-val">{user.completedPrayers.length}</span><span className="p-label">prières</span></div>
         </div>
 
-        <div className="profile-badges-title">Mes récompenses 🏅</div>
+        <div className="profile-badges-title">Mes récompenses 🏅 ({badges.filter(b => b.on).length}/{badges.length})</div>
         <div className="profile-badges">
           {badges.map((b, i) => (
             <div key={i} className={`p-badge ${b.on ? b.cls : 'locked'}`} title={b.label}>

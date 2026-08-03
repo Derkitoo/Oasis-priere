@@ -77,11 +77,15 @@
   font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 9.5px;
   color: var(--muted); text-align: center; line-height: 1.1;
 }
-.b-moon  .p-badge-ico { background: linear-gradient(135deg, #F4C24E, #EBA92E); box-shadow: 0 5px 12px rgba(235,169,46,.35); }
-.b-water .p-badge-ico { background: linear-gradient(135deg, #8CC76A, #6FAE54); box-shadow: 0 5px 12px rgba(111,174,84,.35); }
-.b-fire  .p-badge-ico { background: linear-gradient(135deg, #F2884B, #E06E30); box-shadow: 0 5px 12px rgba(240,136,75,.35); }
-.b-star  .p-badge-ico { background: linear-gradient(135deg, #7EC8E3, #4EA8DE); box-shadow: 0 5px 12px rgba(78,168,222,.35); }
-.b-book  .p-badge-ico { background: linear-gradient(135deg, #B79CE8, #9B6BDB); box-shadow: 0 5px 12px rgba(155,107,219,.35); }
+.b-moon   .p-badge-ico { background: linear-gradient(135deg, #F4C24E, #EBA92E); box-shadow: 0 5px 12px rgba(235,169,46,.35); }
+.b-water  .p-badge-ico { background: linear-gradient(135deg, #8CC76A, #6FAE54); box-shadow: 0 5px 12px rgba(111,174,84,.35); }
+.b-fire   .p-badge-ico { background: linear-gradient(135deg, #F2884B, #E06E30); box-shadow: 0 5px 12px rgba(240,136,75,.35); }
+.b-star   .p-badge-ico { background: linear-gradient(135deg, #7EC8E3, #4EA8DE); box-shadow: 0 5px 12px rgba(78,168,222,.35); }
+.b-book   .p-badge-ico { background: linear-gradient(135deg, #B79CE8, #9B6BDB); box-shadow: 0 5px 12px rgba(155,107,219,.35); }
+.b-shield .p-badge-ico { background: linear-gradient(135deg, #2A9D8F, #1D7066); box-shadow: 0 5px 12px rgba(42,157,143,.35); }
+.b-bird   .p-badge-ico { background: linear-gradient(135deg, #E76F51, #C85336); box-shadow: 0 5px 12px rgba(231,111,81,.35); }
+.b-time   .p-badge-ico { background: linear-gradient(135deg, #E9C46A, #D4A338); box-shadow: 0 5px 12px rgba(233,196,106,.35); }
+.b-crown  .p-badge-ico { background: linear-gradient(135deg, #FFD700, #FFA500); box-shadow: 0 5px 12px rgba(255,215,0,.45); }
 .p-badge.locked .p-badge-ico { background: #F0ECE0; opacity: .55; font-size: 22px; }
 
 .btn-reset {
