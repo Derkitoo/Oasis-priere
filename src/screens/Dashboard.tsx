@@ -57,11 +57,11 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
   }, [user.xp, xpPct]);
 
   const characterImg = user.avatarChoice === 'girl'
-    ? `${import.meta.env.BASE_URL}avatars/girl_full.jpg`
-    : `${import.meta.env.BASE_URL}avatars/boy_full.jpg`;
+    ? `${import.meta.env.BASE_URL}avatars/girl_full.png`
+    : `${import.meta.env.BASE_URL}avatars/boy_full.png`;
   const characterAvatar = user.avatarChoice === 'girl'
-    ? `${import.meta.env.BASE_URL}avatars/girl.jpg`
-    : `${import.meta.env.BASE_URL}avatars/boy.jpg`;
+    ? `${import.meta.env.BASE_URL}avatars/girl.png`
+    : `${import.meta.env.BASE_URL}avatars/boy.png`;
 
   return (
     <div className="dash">

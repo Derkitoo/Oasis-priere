@@ -6,8 +6,8 @@ import './Onboarding.css';
 interface Props { onDone: (u: UserProfile) => void; }
 
 const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
-const BOY_AVATAR = `${import.meta.env.BASE_URL}avatars/boy.jpg`;
-const GIRL_AVATAR = `${import.meta.env.BASE_URL}avatars/girl.jpg`;
+const BOY_AVATAR = `${import.meta.env.BASE_URL}avatars/boy.png`;
+const GIRL_AVATAR = `${import.meta.env.BASE_URL}avatars/girl.png`;
 
 export default function Onboarding({ onDone }: Props) {
   const [step, setStep] = useState(0);
