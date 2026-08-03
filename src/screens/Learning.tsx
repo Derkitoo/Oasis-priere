@@ -17,6 +17,11 @@ interface Props {
 
 type Mode = 'karaoke' | 'flash' | 'quiz' | 'order';
 
+const postureForAvatar = (image: string, avatarChoice: UserProfile['avatarChoice']) =>
+  /^(ruku_[012]|sujud_[012]|takbir_[34]|tashahhud_[23]|taslim_[12])\.png$/.test(image)
+    ? `${avatarChoice === 'girl' ? 'girl' : 'boy'}_${image}`
+    : image;
+
 function StarRow({ count }: { count: number }) {
   return (
     <div className="star-row">
@@ -124,7 +129,7 @@ export default function Learning({ user, onUser, onBack }: Props) {
           ].map(p => (
             <div key={p.id} className="posture-card">
               <div className="posture-img-wrap">
-                <img src={`${import.meta.env.BASE_URL}postures/${p.img}`} alt={p.label} className="posture-img" />
+                <img src={`${import.meta.env.BASE_URL}postures/${postureForAvatar(p.img, user.avatarChoice)}`} alt={p.label} className="posture-img" />
               </div>
               <div className="posture-info">
                 <div className="posture-name">{p.label}</div>

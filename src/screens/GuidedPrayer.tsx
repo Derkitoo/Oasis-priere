@@ -15,6 +15,11 @@ interface Props {
 
 const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
+const postureForAvatar = (image: string, avatarChoice: UserProfile['avatarChoice']) =>
+  /^(ruku_[012]|sujud_[012]|takbir_[34]|tashahhud_[23]|taslim_[12])\.png$/.test(image)
+    ? `${avatarChoice === 'girl' ? 'girl' : 'boy'}_${image}`
+    : image;
+
 export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props): React.ReactElement {
   const prayer = PRAYERS.find(p => p.id === prayerId) ?? PRAYERS[0];
   const [idx, setIdx] = useState(0);
@@ -81,7 +86,7 @@ export default function GuidedPrayer({ prayerId, user, onUser, onBack }: Props):
         <div className="gp-posture-wrap">
           <img
             className="gp-posture-img"
-            src={`${import.meta.env.BASE_URL}postures/${step.image}`}
+            src={`${import.meta.env.BASE_URL}postures/${postureForAvatar(step.image, user.avatarChoice)}`}
             alt={step.label}
           />
         </div>

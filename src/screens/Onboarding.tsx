@@ -15,9 +15,10 @@ export default function Onboarding({ onDone }: Props) {
   const [age, setAge] = useState(10);
   const [level, setLevel] = useState<UserProfile['level']>('debutant');
   const [readArabic, setReadArabic] = useState<UserProfile['readArabic']>('partial');
-  const [avatarChoice, setAvatarChoice] = useState<'boy' | 'girl'>('boy');
+  const [avatarChoice, setAvatarChoice] = useState<'boy' | 'girl' | null>(null);
 
   const finish = () => {
+    if (!avatarChoice) return;
     const u = createUser(name || 'Mon enfant', age, level, readArabic, avatarChoice);
     saveUser(u);
     onDone(u);
@@ -62,22 +63,26 @@ export default function Onboarding({ onDone }: Props) {
             <div className="step-num">2 / 5</div>
             <h2>Choisis ton personnage !</h2>
             <div className="avatar-pick-row">
-              <div
+              <button
+                type="button"
                 className={`avatar-pick-card ${avatarChoice === 'boy' ? 'selected' : ''}`}
                 onClick={() => setAvatarChoice('boy')}
+                aria-pressed={avatarChoice === 'boy'}
               >
                 <img src={BOY_AVATAR} alt="Garçon" className="avatar-pick-img" />
                 <span>Garçon 👦</span>
-              </div>
-              <div
+              </button>
+              <button
+                type="button"
                 className={`avatar-pick-card ${avatarChoice === 'girl' ? 'selected' : ''}`}
                 onClick={() => setAvatarChoice('girl')}
+                aria-pressed={avatarChoice === 'girl'}
               >
                 <img src={GIRL_AVATAR} alt="Fille" className="avatar-pick-img" />
                 <span>Fille 👧</span>
-              </div>
+              </button>
             </div>
-            <button className="btn-gold" onClick={() => setStep(3)}>Suivant →</button>
+            <button className="btn-gold" onClick={() => setStep(3)} disabled={!avatarChoice}>Suivant →</button>
           </div>
         )}
 

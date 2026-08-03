@@ -21,6 +21,7 @@ export default function Profile({ user, onBack, onReset, onUser }: Props) {
   const suraCount = Object.keys(user.suraStars ?? {}).length;
   const unlocked = user.unlockedThemes ?? ['default'];
   const selectedTheme = user.selectedTheme ?? 'default';
+  const avatarSrc = `${import.meta.env.BASE_URL}avatars/${user.avatarChoice === 'girl' ? 'girl' : 'boy'}.png`;
 
   const badges = [
     { ico: '🌙', label: '1ère prière',   on: user.completedPrayers.length >= 1, cls: 'b-moon' },
@@ -70,7 +71,9 @@ export default function Profile({ user, onBack, onReset, onUser }: Props) {
       </div>
 
       <div className="profile-body">
-        <div className="profile-avatar">{user.name[0].toUpperCase()}</div>
+        <div className="profile-avatar">
+          <img src={avatarSrc} alt={`Avatar de ${user.name}`} />
+        </div>
         <div className="profile-name">{user.name}</div>
         <div className="profile-level">Niveau {level} · {user.level}</div>
 
