@@ -6,6 +6,8 @@ import './Onboarding.css';
 interface Props { onDone: (u: UserProfile) => void; }
 
 const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
+const BOY_AVATAR = `${import.meta.env.BASE_URL}avatars/boy.jpg`;
+const GIRL_AVATAR = `${import.meta.env.BASE_URL}avatars/girl.jpg`;
 
 export default function Onboarding({ onDone }: Props) {
   const [step, setStep] = useState(0);
@@ -13,9 +15,10 @@ export default function Onboarding({ onDone }: Props) {
   const [age, setAge] = useState(10);
   const [level, setLevel] = useState<UserProfile['level']>('debutant');
   const [readArabic, setReadArabic] = useState<UserProfile['readArabic']>('partial');
+  const [avatarChoice, setAvatarChoice] = useState<'boy' | 'girl'>('boy');
 
   const finish = () => {
-    const u = createUser(name || 'Mon enfant', age, level, readArabic);
+    const u = createUser(name || 'Mon enfant', age, level, readArabic, avatarChoice);
     saveUser(u);
     onDone(u);
   };
@@ -32,14 +35,14 @@ export default function Onboarding({ onDone }: Props) {
             <p>Apprends la prière pas à pas, avec amour et patience.</p>
             <button className="btn-gold" onClick={() => setStep(1)}>Commencer ✨</button>
             <div className="onboard-dots">
-              <span className="od on" /><span className="od" /><span className="od" /><span className="od" />
+              <span className="od on" /><span className="od" /><span className="od" /><span className="od" /><span className="od" />
             </div>
           </div>
         )}
 
         {step === 1 && (
           <div className="onboard-step">
-            <div className="step-num">1 / 4</div>
+            <div className="step-num">1 / 5</div>
             <h2>Quel est ton prénom ?</h2>
             <input
               className="onboard-input"
@@ -56,12 +59,23 @@ export default function Onboarding({ onDone }: Props) {
 
         {step === 2 && (
           <div className="onboard-step">
-            <div className="step-num">2 / 4</div>
-            <h2>Quel âge as-tu ?</h2>
-            <div className="age-selector">
-              <button className="age-btn" onClick={() => setAge(a => Math.max(7, a - 1))}>−</button>
-              <span className="age-display">{age} ans</span>
-              <button className="age-btn" onClick={() => setAge(a => Math.min(13, a + 1))}>+</button>
+            <div className="step-num">2 / 5</div>
+            <h2>Choisis ton personnage !</h2>
+            <div className="avatar-pick-row">
+              <div
+                className={`avatar-pick-card ${avatarChoice === 'boy' ? 'selected' : ''}`}
+                onClick={() => setAvatarChoice('boy')}
+              >
+                <img src={BOY_AVATAR} alt="Garçon" className="avatar-pick-img" />
+                <span>Garçon 👦</span>
+              </div>
+              <div
+                className={`avatar-pick-card ${avatarChoice === 'girl' ? 'selected' : ''}`}
+                onClick={() => setAvatarChoice('girl')}
+              >
+                <img src={GIRL_AVATAR} alt="Fille" className="avatar-pick-img" />
+                <span>Fille 👧</span>
+              </div>
             </div>
             <button className="btn-gold" onClick={() => setStep(3)}>Suivant →</button>
           </div>
@@ -69,7 +83,20 @@ export default function Onboarding({ onDone }: Props) {
 
         {step === 3 && (
           <div className="onboard-step">
-            <div className="step-num">3 / 4</div>
+            <div className="step-num">3 / 5</div>
+            <h2>Quel âge as-tu ?</h2>
+            <div className="age-selector">
+              <button className="age-btn" onClick={() => setAge(a => Math.max(7, a - 1))}>−</button>
+              <span className="age-display">{age} ans</span>
+              <button className="age-btn" onClick={() => setAge(a => Math.min(13, a + 1))}>+</button>
+            </div>
+            <button className="btn-gold" onClick={() => setStep(4)}>Suivant →</button>
+          </div>
+        )}
+
+        {step === 4 && (
+          <div className="onboard-step">
+            <div className="step-num">4 / 5</div>
             <h2>Où en es-tu avec la prière ?</h2>
             <div className="level-choices">
               {([
@@ -88,13 +115,13 @@ export default function Onboarding({ onDone }: Props) {
                 </button>
               ))}
             </div>
-            <button className="btn-gold" onClick={() => setStep(4)}>Suivant →</button>
+            <button className="btn-gold" onClick={() => setStep(5)}>Suivant →</button>
           </div>
         )}
 
-        {step === 4 && (
+        {step === 5 && (
           <div className="onboard-step">
-            <div className="step-num">4 / 4</div>
+            <div className="step-num">5 / 5</div>
             <h2>Tu sais lire l'arabe ?</h2>
             <p className="onboard-hint">Cela nous aide à adapter tes exercices.</p>
             <div className="level-choices">

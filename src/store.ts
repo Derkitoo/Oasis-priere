@@ -10,6 +10,7 @@ export interface UserProfile {
   memorizedSuras: string[];
   suraStars?: Record<string, number>; // suraId → 0-3 étoiles
   readArabic?: 'yes' | 'partial' | 'no';
+  avatarChoice?: 'boy' | 'girl';
   tasbihCount?: number;
   unlockedDouas?: string[];
   selectedTheme?: string;
@@ -33,7 +34,8 @@ export const createUser = (
   name: string,
   age: number,
   level: UserProfile['level'],
-  readArabic: UserProfile['readArabic'] = 'partial'
+  readArabic: UserProfile['readArabic'] = 'partial',
+  avatarChoice: 'boy' | 'girl' = 'boy'
 ): UserProfile => ({
   name,
   age,
@@ -45,6 +47,7 @@ export const createUser = (
   masteredPostures: [],
   memorizedSuras: [],
   readArabic,
+  avatarChoice,
   tasbihCount: 0,
   unlockedDouas: [],
   selectedTheme: 'default',

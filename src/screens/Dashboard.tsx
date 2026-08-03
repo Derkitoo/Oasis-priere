@@ -13,8 +13,6 @@ interface Props {
   onDouas: () => void;
 }
 
-const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
-
 export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, onTasbih, onDouas }: Props) {
   const next = getCurrentPrayer();
   const todayKey = new Date().toDateString();
@@ -58,6 +56,13 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
     return () => { cancelAnimationFrame(raf); clearTimeout(id); };
   }, [user.xp, xpPct]);
 
+  const characterImg = user.avatarChoice === 'girl'
+    ? `${import.meta.env.BASE_URL}avatars/girl_full.jpg`
+    : `${import.meta.env.BASE_URL}avatars/boy_full.jpg`;
+  const characterAvatar = user.avatarChoice === 'girl'
+    ? `${import.meta.env.BASE_URL}avatars/girl.jpg`
+    : `${import.meta.env.BASE_URL}avatars/boy.jpg`;
+
   return (
     <div className="dash">
       {/* ===== Bandeau coloré ===== */}
@@ -68,7 +73,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
             <div className="dash-date">{dateStr}</div>
           </div>
           <button className="dash-avatar" onClick={onProfile}>
-            {user.name[0].toUpperCase()}
+            <img src={characterAvatar} alt={user.name} className="dash-avatar-img" />
           </button>
         </div>
         <div className="dash-banner-subrow">
@@ -124,7 +129,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
 
         {/* ===== Prochaine prière ===== */}
         <div className="next-card">
-          <img className="next-mascot" src={MASCOT} alt="" />
+          <img className="next-mascot" src={characterImg} alt={user.name} />
           <div className="next-label">Prochaine prière</div>
           <div className="next-name">{next.name}</div>
           <div className="next-meta">{next.arabicName} · {next.rakats} raka'at</div>

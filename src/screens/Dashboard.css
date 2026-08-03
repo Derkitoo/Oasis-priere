@@ -66,6 +66,10 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
   transform: rotate(-5deg);
   transition: transform 0.15s;
+  overflow: hidden; padding: 0;
+}
+.dash-avatar-img {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 18px;
 }
 .dash-avatar:hover { transform: rotate(0deg) scale(1.05); }
 
