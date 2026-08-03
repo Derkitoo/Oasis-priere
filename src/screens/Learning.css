@@ -69,6 +69,7 @@
   transition: transform .12s;
 }
 .mode-btn:hover { transform: translateY(-2px); }
+.mode-karaoke { background: #FFF3D6; color: #B37B00; }
 .mode-flash { background: var(--yellow-soft); color: #A0772A; }
 .mode-quiz  { background: var(--green-soft); color: var(--green-d); }
 .mode-order { background: #FBE3D3; color: #C77A45; }

@@ -6,6 +6,7 @@ import { completeSuraMode } from '../store';
 import FlashMode from './FlashMode';
 import QuizMode from './QuizMode';
 import OrderMode from './OrderMode';
+import KaraokeMode from './KaraokeMode';
 import './Learning.css';
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
   onBack: () => void;
 }
 
-type Mode = 'flash' | 'quiz' | 'order';
+type Mode = 'karaoke' | 'flash' | 'quiz' | 'order';
 
 function StarRow({ count }: { count: number }) {
   return (
@@ -32,6 +33,11 @@ export default function Learning({ user, onUser, onBack }: Props) {
 
   const launch = (sura: Sura, m: Mode) => { setActiveSura(sura); setMode(m); };
   const backToMenu = () => { setActiveSura(null); setMode(null); };
+
+  const handleKaraokeDone = () => {
+    const updated = completeSuraMode(user, activeSura!.id, 1, 20);
+    onUser(updated); backToMenu();
+  };
 
   const handleFlashDone = () => {
     const updated = completeSuraMode(user, activeSura!.id, 1, 10);
@@ -54,9 +60,10 @@ export default function Learning({ user, onUser, onBack }: Props) {
 
   const ra = user.readArabic ?? 'partial';
 
-  if (activeSura && mode === 'flash') return <FlashMode sura={activeSura} readArabic={ra} onDone={handleFlashDone} onBack={backToMenu} />;
-  if (activeSura && mode === 'quiz')  return <QuizMode  sura={activeSura} readArabic={ra} onDone={handleQuizDone}  onBack={backToMenu} />;
-  if (activeSura && mode === 'order') return <OrderMode  sura={activeSura} readArabic={ra} onDone={handleOrderDone} onBack={backToMenu} />;
+  if (activeSura && mode === 'karaoke') return <KaraokeMode sura={activeSura} readArabic={ra} onDone={handleKaraokeDone} onBack={backToMenu} />;
+  if (activeSura && mode === 'flash')   return <FlashMode   sura={activeSura} readArabic={ra} onDone={handleFlashDone}   onBack={backToMenu} />;
+  if (activeSura && mode === 'quiz')    return <QuizMode    sura={activeSura} readArabic={ra} onDone={handleQuizDone}    onBack={backToMenu} />;
+  if (activeSura && mode === 'order')   return <OrderMode   sura={activeSura} readArabic={ra} onDone={handleOrderDone}   onBack={backToMenu} />;
 
   // ── Menu ──────────────────────────────────────────────────────────
   return (
@@ -68,7 +75,7 @@ export default function Learning({ user, onUser, onBack }: Props) {
       </div>
 
       <div className="learn-body">
-        <h3 className="section-title">📖 Sourates</h3>
+        <h3 className="section-title">📖 Sourates (7 sourates)</h3>
         <div className="sura-list">
           {SURAS.map(sura => {
             const stars = user.suraStars?.[sura.id] ?? 0;
@@ -83,6 +90,9 @@ export default function Learning({ user, onUser, onBack }: Props) {
                   <StarRow count={stars} />
                 </div>
                 <div className="sura-modes">
+                  <button className="mode-btn mode-karaoke" onClick={() => launch(sura, 'karaoke')}>
+                    🎤 Karaoké
+                  </button>
                   <button className={`mode-btn mode-flash ${stars >= 1 ? 'mode-done' : ''}`} onClick={() => launch(sura, 'flash')}>
                     ⚡ Flash
                   </button>
