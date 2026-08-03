@@ -10,6 +10,8 @@ export interface UserProfile {
   memorizedSuras: string[];
   suraStars?: Record<string, number>; // suraId → 0-3 étoiles
   readArabic?: 'yes' | 'partial' | 'no';
+  tasbihCount?: number;
+  unlockedDouas?: string[];
 }
 
 const KEY = 'oasis_user';
@@ -41,6 +43,8 @@ export const createUser = (
   masteredPostures: [],
   memorizedSuras: [],
   readArabic,
+  tasbihCount: 0,
+  unlockedDouas: [],
 });
 
 export const addXP = (user: UserProfile, amount: number): UserProfile => {
@@ -74,6 +78,16 @@ export const completePrayer = (user: UserProfile, prayerId: string): UserProfile
     streak,
     lastPrayerDate: today,
     completedPrayers: [...new Set([...user.completedPrayers, `${prayerId}_${today}`])],
+  };
+  saveUser(updated);
+  return updated;
+};
+
+export const completeTasbihSession = (user: UserProfile, count: number): UserProfile => {
+  const updated: UserProfile = {
+    ...user,
+    xp: user.xp + 25,
+    tasbihCount: (user.tasbihCount ?? 0) + count,
   };
   saveUser(updated);
   return updated;

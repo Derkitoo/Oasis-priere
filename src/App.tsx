@@ -9,9 +9,11 @@ import GuidedPrayer from './screens/GuidedPrayer';
 import WuduGuide from './screens/WuduGuide';
 import Learning from './screens/Learning';
 import Profile from './screens/Profile';
+import TasbihScreen from './screens/TasbihScreen';
+import DouasScreen from './screens/DouasScreen';
 import BottomNav from './screens/BottomNav';
 
-type Screen = 'dashboard' | 'prayer' | 'wudu' | 'learning' | 'profile';
+export type Screen = 'dashboard' | 'prayer' | 'wudu' | 'learning' | 'profile' | 'tasbih' | 'douas';
 
 export default function App() {
   const [user, setUser] = useState<UserProfile | null>(loadUser);
@@ -24,7 +26,7 @@ export default function App() {
   const handleUser = (u: UserProfile) => { setUser(u); saveUser(u); };
   const handleReset = () => { localStorage.clear(); setUser(null); };
 
-  // La barre du bas n'apparaît que sur les écrans "onglets"
+  // La barre du bas n'apparaît que sur les écrans de navigation principale
   const showNav = screen === 'dashboard' || screen === 'learning' || screen === 'profile';
 
   return (
@@ -36,6 +38,8 @@ export default function App() {
           onWudu={() => setScreen('wudu')}
           onLearn={() => setScreen('learning')}
           onProfile={() => setScreen('profile')}
+          onTasbih={() => setScreen('tasbih')}
+          onDouas={() => setScreen('douas')}
         />
       )}
       {screen === 'prayer' && (
@@ -57,6 +61,18 @@ export default function App() {
           user={user}
           onBack={() => setScreen('dashboard')}
           onReset={handleReset}
+        />
+      )}
+      {screen === 'tasbih' && (
+        <TasbihScreen
+          user={user}
+          onDone={handleUser}
+          onBack={() => setScreen('dashboard')}
+        />
+      )}
+      {screen === 'douas' && (
+        <DouasScreen
+          onBack={() => setScreen('dashboard')}
         />
       )}
 

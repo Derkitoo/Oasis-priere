@@ -1,0 +1,63 @@
+.douas-screen {
+  min-height: 100vh;
+  background: #FFF8EC;
+  font-family: 'Quicksand', sans-serif;
+  display: flex; flex-direction: column;
+}
+
+.douas-header {
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: #2A9D8F; color: #fff;
+  box-shadow: 0 4px 14px rgba(42,157,143,.25);
+}
+.douas-header h2 {
+  font-family: 'Baloo 2', cursive; font-size: 18px; font-weight: 800; margin: 0;
+}
+
+.douas-body {
+  max-width: 500px; margin: 0 auto; width: 100%; padding: 20px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.douas-filter-chips {
+  display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+}
+.douas-filter-chips::-webkit-scrollbar { display: none; }
+
+.chip {
+  border: none; background: #fff; color: #3D4A35;
+  font-family: 'Baloo 2', cursive; font-weight: 700; font-size: 12px;
+  padding: 8px 16px; border-radius: 100px; cursor: pointer;
+  white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+}
+.chip.active {
+  background: #2A9D8F; color: #fff;
+}
+
+.douas-list {
+  display: flex; flex-direction: column; gap: 14px;
+}
+
+.doua-card {
+  background: #fff; border-radius: 20px; padding: 20px;
+  box-shadow: 0 4px 16px rgba(70,90,50,.06); border: 1.5px solid #E9DCC4;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.doua-title {
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 16px; color: #2A9D8F;
+}
+.doua-arabic {
+  font-family: 'Amiri', serif; font-size: 24px; color: #3D4A35; direction: rtl; text-align: right;
+}
+.doua-trans {
+  font-style: italic; font-size: 13px; color: #5A9645; font-weight: 600;
+}
+.doua-translation {
+  font-size: 13px; color: #3D4A35; line-height: 1.5;
+}
+.doua-benefit {
+  background: #FFF3D6; border-radius: 12px; padding: 8px 12px;
+  font-size: 11.5px; color: #B37B00; font-weight: 600; line-height: 1.4;
+}

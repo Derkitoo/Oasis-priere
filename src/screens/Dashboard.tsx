@@ -9,11 +9,13 @@ interface Props {
   onWudu: () => void;
   onLearn: () => void;
   onProfile: () => void;
+  onTasbih: () => void;
+  onDouas: () => void;
 }
 
 const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
-export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: Props) {
+export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, onTasbih, onDouas }: Props) {
   const next = getCurrentPrayer();
   const todayKey = new Date().toDateString();
   const isDone = (id: string) => user.completedPrayers.includes(`${id}_${todayKey}`);
@@ -26,9 +28,19 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: 
     weekday: 'long', day: 'numeric', month: 'long',
   });
 
-  // ----- compteurs animés (XP qui monte + barre qui se remplit) -----
   const [animXp, setAnimXp] = useState(0);
   const [barPct, setBarPct] = useState(0);
+  const [showQibla, setShowQibla] = useState(false);
+
+  // Étape de l'Arbre de la Foi
+  const treeLeaves = user.xp + (user.completedPrayers.length * 10);
+  const getTreeStage = () => {
+    if (treeLeaves < 100) return { title: 'Jeune Pousse 🌱', emoji: '🌱', desc: 'Arrose ton arbre avec tes prières !' };
+    if (treeLeaves < 300) return { title: 'Arbrisseau 🌿', emoji: '🌿', desc: 'Tes feuilles verdissent au soleil !' };
+    if (treeLeaves < 600) return { title: 'Grand Arbre 🌳', emoji: '🌳', desc: 'Un feuillage abondant et protecteur !' };
+    return { title: 'L\'Arbre Céleste 🌴', emoji: '🌴', desc: 'Ton Oasis resplendit de lumière !' };
+  };
+  const treeStage = getTreeStage();
 
   useEffect(() => {
     const target = user.xp;
@@ -59,9 +71,14 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: 
             {user.name[0].toUpperCase()}
           </button>
         </div>
-        <div className="dash-streak">
-          <span className="dash-streak-ico">🔥</span>
-          <span>{user.streak} jour{user.streak > 1 ? 's' : ''} de suite !</span>
+        <div className="dash-banner-subrow">
+          <div className="dash-streak">
+            <span className="dash-streak-ico">🔥</span>
+            <span>{user.streak} jour{user.streak > 1 ? 's' : ''} de suite !</span>
+          </div>
+          <button className="qibla-btn" onClick={() => setShowQibla(true)}>
+            🧭 Qibla
+          </button>
         </div>
       </header>
 
@@ -74,6 +91,15 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: 
           </div>
           <div className="xp-track">
             <div className="xp-fill" style={{ width: `${barPct}%` }} />
+          </div>
+        </div>
+
+        {/* ===== Arbre de la Foi ===== */}
+        <div className="tree-card">
+          <div className="tree-icon">{treeStage.emoji}</div>
+          <div className="tree-info">
+            <div className="tree-title">{treeStage.title}</div>
+            <div className="tree-sub">{treeLeaves} feuilles d'Oasis · {treeStage.desc}</div>
           </div>
         </div>
 
@@ -96,7 +122,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: 
           </div>
         </div>
 
-        {/* ===== Prochaine prière + mascotte ===== */}
+        {/* ===== Prochaine prière ===== */}
         <div className="next-card">
           <img className="next-mascot" src={MASCOT} alt="" />
           <div className="next-label">Prochaine prière</div>
@@ -127,20 +153,39 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile }: 
         </div>
 
         {/* ===== Actions ===== */}
-        <div className="dash-actions">
-          <button className="btn-wudu" onClick={onWudu}>💧 Ablutions</button>
-          <button className="btn-learn" onClick={onLearn}>📚 Apprendre</button>
+        <div className="dash-actions-grid">
+          <button className="btn-action btn-wudu" onClick={onWudu}>💧 Ablutions</button>
+          <button className="btn-action btn-tasbih" onClick={onTasbih}>📿 Tasbih</button>
+          <button className="btn-action btn-douas" onClick={onDouas}>🤲 Douas</button>
+          <button className="btn-action btn-learn" onClick={onLearn}>📚 Apprendre</button>
         </div>
 
         {/* ===== Badges ===== */}
         <div className="badges-title">Mes badges 🏅</div>
-        <div className="badges">
+        <div className="badges" onClick={onProfile}>
           <div className="badge b-moon">🌙</div>
           <div className="badge b-water">💧</div>
           <div className="badge b-fire">🔥</div>
-          <div className="badge locked">🔒</div>
+          <div className="badge b-shield">🛡️</div>
         </div>
       </div>
+
+      {/* ===== Qibla Modal ===== */}
+      {showQibla && (
+        <div className="qibla-modal-overlay" onClick={() => setShowQibla(false)}>
+          <div className="qibla-modal" onClick={e => e.stopPropagation()}>
+            <button className="qibla-close" onClick={() => setShowQibla(false)}>✕</button>
+            <h3>Boussole Qibla 🧭</h3>
+            <p>Direction vers la Ka'aba à La Mecque</p>
+            <div className="qibla-compass">
+              <div className="compass-ring">
+                <div className="compass-needle">🕋</div>
+              </div>
+            </div>
+            <div className="qibla-status">✨ Alignement parfait vers la Qibla</div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
