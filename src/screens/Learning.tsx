@@ -103,8 +103,8 @@ export default function Learning({ user, onUser, onBack }: Props) {
           {[
             { id: 'takbir',          img: 'takbir_3.png',  label: 'Takbîrat al-Ihrâm',      desc: 'Debout, bras levés aux épaules — « Allâhou Akbar »' },
             { id: 'qiyam',           img: 'takbir_4.png',  label: 'Qiyam (Debout)',          desc: 'Main droite sur main gauche, au-dessus de la poitrine' },
-            { id: 'ruku',            img: 'ruku_0.jpg',    label: "Ruku' (Inclinaison)",     desc: "Incliné, mains sur les genoux, dos droit — × 3" },
-            { id: 'itidal',          img: 'ruku_2.jpg',    label: "I'tidâl (Redressement)",  desc: "Debout après le ruku' — « Sami'aLlâhou liman Hamidah »" },
+            { id: 'ruku',            img: 'ruku_0.png',    label: "Ruku' (Inclinaison)",     desc: "Incliné, mains sur les genoux, dos droit — × 3" },
+            { id: 'itidal',          img: 'ruku_2.png',    label: "I'tidâl (Redressement)",  desc: "Debout après le ruku' — « Sami'aLlâhou liman Hamidah »" },
             { id: 'sujud',           img: 'sujud_0.png',   label: 'Soujoud (Prosternation)', desc: '7 parties sur le sol — × 3' },
             { id: 'julus',           img: 'sujud_2.png',   label: 'Joulous (Assis)',         desc: 'Entre les deux prosternations — « Rabbighfir lî » × 3' },
             { id: 'tashahhud',       img: 'tashahhud_3.png', label: 'Tachahhoud',            desc: 'Assis, index levé vers la Qibla' },

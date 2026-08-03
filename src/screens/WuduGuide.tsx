@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { WUDU_STEPS } from '../data/wudu';
 import { addXP } from '../store';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
+import { playAudio, speak, hasArabic } from '../utils/speech';
 import './WuduGuide.css';
 
 interface Props {
@@ -9,6 +11,8 @@ interface Props {
   onUser: (u: UserProfile) => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactElement {
   const [idx, setIdx] = useState(0);
@@ -18,8 +22,19 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
   const step = WUDU_STEPS[idx];
   const total = WUDU_STEPS.length;
   const pct = ((idx + 1) / total) * 100;
+  const ra = user.readArabic ?? 'partial';
 
-  const next = () => {
+  const encouragement =
+    idx === 0 ? 'On se purifie, bismillah ! 💧'
+    : idx >= total - 2 ? 'Presque fini, bravo ! 💪'
+    : pct >= 50 ? 'Tu fais ça très bien ! 🌟'
+    : 'Continue doucement 💦';
+
+  const handlePrev = () => {
+    if (idx > 0) { setIdx(i => i - 1); setShowDesc(false); }
+  };
+
+  const handleNext = () => {
     setShowDesc(false);
     if (idx < total - 1) {
       setIdx(i => i + 1);
@@ -30,8 +45,15 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
     }
   };
 
+  const handleSpeak = () => {
+    if (step.audioUrl) playAudio(step.audioUrl);
+    else speak(step.arabic);
+  };
+
   if (done) return (
     <div className="wudu-done">
+      <Confetti />
+      <img className="celebrate-mascot" src={MASCOT} alt="" />
       <div className="wudu-done-icon">💧</div>
       <h2>Alhamdulillâh !</h2>
       <p>Tu es en état de pureté.<br />Tu peux maintenant faire la prière.</p>
@@ -39,6 +61,10 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
       <button className="btn-gold" onClick={onBack}>Retour</button>
     </div>
   );
+
+  // Affichage conditionnel selon profil
+  const showArabic = (ra === 'yes' || ra === 'partial') && hasArabic(step.arabic);
+  const showTranslit = ra === 'no' || ra === 'partial';
 
   return (
     <div className="wudu">
@@ -52,6 +78,12 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
       {/* Barre de progression */}
       <div className="wudu-progress">
         <div className="wudu-fill" style={{ width: `${pct}%` }} />
+      </div>
+
+      {/* Mascotte coach */}
+      <div className="wudu-coach">
+        <img className="wudu-coach-mascot" src={MASCOT} alt="" />
+        <div className="wudu-coach-bubble">{encouragement}</div>
       </div>
 
       {/* Contenu */}
@@ -77,11 +109,22 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
         {/* Label */}
         <div className="wudu-step-label">{step.label}</div>
 
-        {/* Arabe */}
-        <div className="wudu-arabic">{step.arabic}</div>
+        {/* Texte principal selon profil */}
+        {showArabic && (
+          <div className="wudu-arabic-row">
+            <div className="wudu-arabic">{step.arabic}</div>
+            <button className="speak-btn" onClick={handleSpeak}>🔊</button>
+          </div>
+        )}
 
-        {/* Translittération */}
-        <div className="wudu-translit">{step.transliteration}</div>
+        {showTranslit && step.transliteration && (
+          <div className="wudu-translit">
+            {step.transliteration}
+            {!showArabic && hasArabic(step.arabic) && (
+              <button className="speak-btn speak-btn-inline" onClick={handleSpeak}>🔊</button>
+            )}
+          </div>
+        )}
 
         {/* Accordéon description */}
         <button className="wudu-desc-toggle" onClick={() => setShowDesc(s => !s)}>
@@ -90,11 +133,6 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
         {showDesc && (
           <div className="wudu-description">{step.description}</div>
         )}
-
-        {/* Bouton suivant */}
-        <button className="wudu-next-btn" onClick={next}>
-          {idx < total - 1 ? 'Suivant →' : 'Terminer ✓'}
-        </button>
       </div>
 
       {/* Points de navigation */}
@@ -102,6 +140,16 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
         {WUDU_STEPS.map((_, i) => (
           <div key={i} className={`wudu-dot ${i === idx ? 'active' : i < idx ? 'past' : ''}`} />
         ))}
+      </div>
+
+      {/* Boutons navigation */}
+      <div className="wudu-nav">
+        <button className="wudu-nav-btn" onClick={handlePrev} disabled={idx === 0}>
+          ← Précédent
+        </button>
+        <button className="wudu-nav-btn wudu-nav-next" onClick={handleNext}>
+          {idx < total - 1 ? 'Suivant →' : 'Terminer ✓'}
+        </button>
       </div>
     </div>
   );

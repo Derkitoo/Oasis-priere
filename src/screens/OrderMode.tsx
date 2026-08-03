@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import type { Sura } from '../data/suras';
 import type { UserProfile } from '../store';
+import Confetti from './Confetti';
 
 interface Props {
   sura: Sura;
@@ -8,6 +9,8 @@ interface Props {
   onDone: (errors: number) => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 interface Tile { originalIdx: number; order: number | null; }
 
@@ -36,7 +39,6 @@ export default function OrderMode({ sura, readArabic, onDone, onBack }: Props) {
     if (validated) return;
     const t = tiles[i];
     if (t.order !== null) {
-      // deselect uniquement la dernière placée
       if (t.order === placed) setTiles(prev => prev.map((x, j) => j === i ? { ...x, order: null } : x));
     } else {
       setTiles(prev => prev.map((x, j) => j === i ? { ...x, order: placed + 1 } : x));
@@ -61,6 +63,8 @@ export default function OrderMode({ sura, readArabic, onDone, onBack }: Props) {
 
     return (
       <div className="mode-done">
+        <Confetti />
+        <img className="celebrate-mascot" src={MASCOT} alt="" />
         <div className="mode-done-emoji">{emoji}</div>
         <h2>{msg}</h2>
         <p>{perfect ? 'Ordre parfait !' : `${errors} erreur${errors > 1 ? 's' : ''}`}</p>

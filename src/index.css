@@ -23,3 +23,21 @@ body {
 #root { min-height: 100vh; }
 button { cursor: pointer; font-family: inherit; border: none; }
 input { font-family: inherit; }
+
+/* Bouton écoute (partagé) */
+.speak-btn {
+  flex-shrink: 0;
+  background: rgba(42,191,191,0.15);
+  border: 1.5px solid rgba(42,191,191,0.4);
+  border-radius: 50%;
+  width: 44px; height: 44px;
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s;
+}
+.speak-btn:hover { background: rgba(42,191,191,0.3); }
+
+.wudu-arabic-row {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+}
+.wudu-arabic-row .wudu-arabic { flex: 1; }

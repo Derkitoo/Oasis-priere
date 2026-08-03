@@ -5,6 +5,8 @@ import './Onboarding.css';
 
 interface Props { onDone: (u: UserProfile) => void; }
 
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
+
 export default function Onboarding({ onDone }: Props) {
   const [step, setStep] = useState(0);
   const [name, setName] = useState('');
@@ -19,15 +21,19 @@ export default function Onboarding({ onDone }: Props) {
   };
 
   return (
-    <div className="onboard">
+    <div className={`onboard ${step === 0 ? 'onboard-welcome' : ''}`}>
       <div className="onboard-card">
 
         {step === 0 && (
-          <div className="onboard-step">
+          <div className="onboard-step onboard-step-welcome">
+            <img className="onboard-mascot" src={MASCOT} alt="" />
             <div className="mosque-icon">🕌</div>
             <h1>L'Oasis de la Prière</h1>
             <p>Apprends la prière pas à pas, avec amour et patience.</p>
             <button className="btn-gold" onClick={() => setStep(1)}>Commencer ✨</button>
+            <div className="onboard-dots">
+              <span className="od on" /><span className="od" /><span className="od" /><span className="od" />
+            </div>
           </div>
         )}
 
@@ -93,24 +99,9 @@ export default function Onboarding({ onDone }: Props) {
             <p className="onboard-hint">Cela nous aide à adapter tes exercices.</p>
             <div className="level-choices">
               {([
-                {
-                  id: 'yes',
-                  emoji: '✅',
-                  label: "Oui, je lis l'arabe",
-                  desc: 'Je reconnais les lettres et je lis',
-                },
-                {
-                  id: 'partial',
-                  emoji: '📖',
-                  label: 'Un peu',
-                  desc: "J'apprends, je connais quelques lettres",
-                },
-                {
-                  id: 'no',
-                  emoji: '🔤',
-                  label: 'Non, je lis le français',
-                  desc: "J'utilise la translittération pour prononcer",
-                },
+                { id: 'yes',     emoji: '✅', label: "Oui, je lis l'arabe",      desc: 'Je reconnais les lettres et je lis' },
+                { id: 'partial', emoji: '📖', label: 'Un peu',                   desc: "J'apprends, je connais quelques lettres" },
+                { id: 'no',      emoji: '🔤', label: 'Non, je lis le français',  desc: "J'utilise la translittération pour prononcer" },
               ] as const).map(l => (
                 <button
                   key={l.id}

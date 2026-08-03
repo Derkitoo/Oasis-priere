@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import type { Sura } from '../data/suras';
 import type { UserProfile } from '../store';
+import { playAudio } from '../utils/speech';
+import Confetti from './Confetti';
 
 interface Props {
   sura: Sura;
@@ -8,6 +10,8 @@ interface Props {
   onDone: () => void;
   onBack: () => void;
 }
+
+const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
 
 export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
   const [idx, setIdx] = useState(0);
@@ -18,13 +22,30 @@ export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
   const total = sura.verses.length;
 
   const handleTap = () => {
+    if (!revealed) setRevealed(true);
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (idx > 0) { setIdx(i => i - 1); setRevealed(false); }
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!revealed) { setRevealed(true); return; }
     if (idx < total - 1) { setIdx(i => i + 1); setRevealed(false); }
     else setDone(true);
   };
 
+  const handleSpeak = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    playAudio(verse.audioUrl);
+  };
+
   if (done) return (
     <div className="mode-done">
+      <Confetti />
+      <img className="celebrate-mascot" src={MASCOT} alt="" />
       <div className="mode-done-emoji">⭐</div>
       <h2>Bravo !</h2>
       <p>Tu as revu tous les versets de {sura.name}</p>
@@ -49,51 +70,51 @@ export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
 
       <div className={`flash-card ${revealed ? 'revealed' : ''}`} onClick={handleTap}>
 
-        {/* ── Arabophone : arabe en premier, grand ── */}
+        {/* ── Arabophone : arabe en premier ── */}
         {isArabophone && (
           <>
             <div className="flash-arabic flash-arabic-xl">{verse.arabic}</div>
+            <button className="flash-speak-btn" onClick={handleSpeak}>🔊 Écouter</button>
             {revealed && (
               <>
                 <div className="flash-separator" />
                 <div className="flash-translation flash-translation-lg">{verse.translation}</div>
                 <div className="flash-translit flash-translit-sm">{verse.transliteration}</div>
-                <div className="flash-hint">Tape pour continuer →</div>
               </>
             )}
             {!revealed && <div className="flash-hint flash-hint-reveal">Tape pour voir la signification ✨</div>}
           </>
         )}
 
-        {/* ── Partiel : arabe + translittération ensemble ── */}
+        {/* ── Partiel : arabe + translittération ── */}
         {!isArabophone && !isFrancophone && (
           <>
             <div className="flash-arabic">{verse.arabic}</div>
             <div className="flash-translit">{verse.transliteration}</div>
+            <button className="flash-speak-btn" onClick={handleSpeak}>🔊 Écouter</button>
             {revealed && (
               <>
                 <div className="flash-separator" />
                 <div className="flash-translation">{verse.translation}</div>
-                <div className="flash-hint">Tape pour continuer →</div>
               </>
             )}
             {!revealed && <div className="flash-hint flash-hint-reveal">Tape pour voir la traduction ✨</div>}
           </>
         )}
 
-        {/* ── Francophone : translittération en premier, grande ── */}
+        {/* ── Francophone : traduction française en premier ── */}
         {isFrancophone && (
           <>
-            <div className="flash-translit flash-translit-xl">{verse.transliteration}</div>
+            <div className="flash-translation flash-translation-xl">{verse.translation}</div>
+            <div className="flash-translit flash-translit-md">{verse.transliteration}</div>
+            <button className="flash-speak-btn" onClick={handleSpeak}>🔊 Écouter en arabe</button>
             {revealed && (
               <>
                 <div className="flash-separator" />
-                <div className="flash-translation flash-translation-lg">{verse.translation}</div>
                 <div className="flash-arabic flash-arabic-sm">{verse.arabic}</div>
-                <div className="flash-hint">Tape pour continuer →</div>
               </>
             )}
-            {!revealed && <div className="flash-hint flash-hint-reveal">Tape pour voir la signification ✨</div>}
+            {!revealed && <div className="flash-hint flash-hint-reveal">Tape pour voir l'arabe ✨</div>}
           </>
         )}
 
@@ -103,6 +124,15 @@ export default function FlashMode({ sura, readArabic, onDone, onBack }: Props) {
         {sura.verses.map((_, i) => (
           <div key={i} className={`mode-dot ${i === idx ? 'active' : i < idx ? 'past' : ''}`} />
         ))}
+      </div>
+
+      <div className="flash-nav">
+        <button className="flash-nav-btn" onClick={handlePrev} disabled={idx === 0}>
+          ← Précédent
+        </button>
+        <button className="flash-nav-btn flash-nav-next" onClick={handleNext}>
+          {!revealed ? 'Voir ✨' : idx < total - 1 ? 'Suivant →' : 'Terminer ✓'}
+        </button>
       </div>
     </div>
   );
