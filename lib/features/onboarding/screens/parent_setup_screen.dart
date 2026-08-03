@@ -11,6 +11,7 @@ import 'tutorial_screen.dart';
 class ParentSetupScreen extends StatefulWidget {
   final String nickname;
   final int baseSkin;
+  final String headwearId;
   final String outfitId;
   final int initialGrade;
 
@@ -18,6 +19,7 @@ class ParentSetupScreen extends StatefulWidget {
     super.key,
     required this.nickname,
     required this.baseSkin,
+    required this.headwearId,
     required this.outfitId,
     required this.initialGrade,
   });
@@ -78,6 +80,7 @@ class _ParentSetupScreenState extends State<ParentSetupScreen> {
             prayerReminders: _reminders,
             reminderDelays: _delays,
             baseSkin: widget.baseSkin,
+            headwearId: widget.headwearId,
             outfitId: widget.outfitId,
             initialGrade: widget.initialGrade,
           );

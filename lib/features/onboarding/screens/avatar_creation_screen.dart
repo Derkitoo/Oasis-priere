@@ -51,6 +51,7 @@ class _AvatarCreationScreenState extends State<AvatarCreationScreen> {
           builder: (_) => LevelAssessmentScreen(
             nickname: _nicknameCtrl.text.trim(),
             baseSkin: _selectedSkin + 1,
+            headwearId: headwearIds[_selectedHeadwear],
             outfitId: 'outfit_${_selectedOutfit == 0 ? 'default' : outfitNames[_selectedOutfit].toLowerCase().replaceAll(' ', '_')}',
           ),
         ),

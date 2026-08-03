@@ -8,7 +8,7 @@ import '../models/prayer_log_model.dart';
 class DatabaseService {
   static Database? _db;
   static const String _dbName = 'oasis_priere.db';
-  static const int _dbVersion = 1;
+  static const int _dbVersion = 2;
 
   Future<Database> get db async {
     _db ??= await _init();
@@ -21,7 +21,16 @@ class DatabaseService {
       path,
       version: _dbVersion,
       onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
     );
+  }
+
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE avatars ADD COLUMN headwear_id TEXT');
+      await db.execute("ALTER TABLE avatars ADD COLUMN expression TEXT DEFAULT 'happy'");
+      await db.execute('ALTER TABLE avatars ADD COLUMN accessory_id TEXT');
+    }
   }
 
   Future<void> _onCreate(Database db, int version) async {
@@ -51,6 +60,9 @@ class DatabaseService {
         user_id TEXT NOT NULL,
         base_skin INTEGER DEFAULT 1,
         outfit_id TEXT,
+        headwear_id TEXT,
+        expression TEXT DEFAULT 'happy',
+        accessory_id TEXT,
         prayer_rug_id TEXT,
         lantern_id TEXT,
         camp_decoration_ids TEXT,

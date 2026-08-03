@@ -6,12 +6,14 @@ import 'parent_setup_screen.dart';
 class LevelAssessmentScreen extends StatefulWidget {
   final String nickname;
   final int baseSkin;
+  final String headwearId;
   final String outfitId;
 
   const LevelAssessmentScreen({
     super.key,
     required this.nickname,
     required this.baseSkin,
+    required this.headwearId,
     required this.outfitId,
   });
 
@@ -141,6 +143,7 @@ class _LevelAssessmentScreenState extends State<LevelAssessmentScreen> {
               builder: (_) => ParentSetupScreen(
                 nickname: widget.nickname,
                 baseSkin: widget.baseSkin,
+                headwearId: widget.headwearId,
                 outfitId: widget.outfitId,
                 initialGrade: grade,
               ),

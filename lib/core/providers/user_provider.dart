@@ -50,6 +50,7 @@ class UserProvider extends ChangeNotifier {
     required Map<String, bool> prayerReminders,
     required Map<String, int> reminderDelays,
     required int baseSkin,
+    String? headwearId,
     String? outfitId,
     int initialGrade = 1,
   }) async {
@@ -73,6 +74,7 @@ class UserProvider extends ChangeNotifier {
 
     final avatarModel = AvatarModel.initial(id).copyWith(
       baseSkin: baseSkin,
+      headwearId: headwearId ?? 'chechia_white',
       outfitId: outfitId ?? 'outfit_default',
     );
 
