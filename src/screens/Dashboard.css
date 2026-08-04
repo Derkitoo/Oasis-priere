@@ -19,16 +19,17 @@
   --blue-soft: #DCEFFB;
 
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--cream);
   font-family: 'Quicksand', sans-serif;
-  padding-bottom: 32px;
+  padding-bottom: calc(32px + var(--safe-bottom, 0px) + 72px);
 }
 
 /* ---------- Bandeau ---------- */
 .dash-banner {
   background: linear-gradient(135deg, #6FAE54, #5A9645);
   border-radius: 0 0 30px 30px;
-  padding: 26px 20px 38px;
+  padding: calc(26px + var(--safe-top, 0px)) 20px 38px;
   box-shadow: 0 8px 22px rgba(90, 150, 69, 0.28);
 }
 .dash-banner-row {

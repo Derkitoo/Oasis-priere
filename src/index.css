@@ -11,11 +11,19 @@
   --text: #F0EDE6;
   --muted: #8899AA;
   --border: rgba(212,175,55,0.2);
+
+  /* Zones sécurisées (encoche / Dynamic Island / barre de gestes) —
+     nécessaire car l'app tourne en PWA standalone avec statusbar translucide */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  height: 100%;
 }
 
 body {
@@ -25,12 +33,15 @@ body {
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
   overflow-x: hidden;
+  overscroll-behavior-y: none;
 }
 
 #root {
   min-height: 100vh;
   min-height: 100dvh;
   width: 100%;
+  padding-left: var(--safe-left);
+  padding-right: var(--safe-right);
 }
 
 button { cursor: pointer; font-family: inherit; border: none; }

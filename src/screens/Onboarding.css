@@ -12,7 +12,7 @@
   background: var(--cream);
   font-family: 'Quicksand', sans-serif;
   display: flex; align-items: center; justify-content: center;
-  padding: 24px;
+  padding: calc(24px + var(--safe-top, 0px)) calc(24px + var(--safe-right, 0px)) calc(24px + var(--safe-bottom, 0px)) calc(24px + var(--safe-left, 0px));
 }
 /* écran d'accueil = fond vert plein */
 .onboard-welcome {
@@ -38,7 +38,7 @@
 }
 
 .onboard-mascot {
-  height: 240px; object-fit: contain;
+  height: clamp(140px, 32vh, 240px); object-fit: contain;
   filter: drop-shadow(0 14px 22px rgba(0,0,0,.22));
   animation: ob-floaty 4.5s ease-in-out infinite;
 }

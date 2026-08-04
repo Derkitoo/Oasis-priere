@@ -10,10 +10,11 @@
   --yellow: #F4C24E; --yellow-soft: #FCEFC7; --orange: #F2884B;
 
   min-height: 100vh;
+  min-height: 100dvh;
   background: var(--cream);
   font-family: 'Quicksand', sans-serif;
   display: flex; flex-direction: column; align-items: center;
-  padding: 18px 18px 100px;
+  padding: calc(18px + var(--safe-top, 0px)) 18px calc(100px + var(--safe-bottom, 0px));
 }
 
 .learn-topbar {
@@ -116,10 +117,10 @@
   --green-soft: #E8F2DD; --cream: #FFF8EC; --ink: #3D4A35; --muted: #9BA889;
   --yellow: #F4C24E; --yellow-d: #D9A52E; --yellow-soft: #FCEFC7;
 
-  min-height: 100vh; background: var(--cream);
+  min-height: 100vh; min-height: 100dvh; background: var(--cream);
   font-family: 'Quicksand', sans-serif;
   display: flex; flex-direction: column; align-items: center;
-  padding: 18px 18px 26px;
+  padding: calc(18px + var(--safe-top, 0px)) 18px calc(26px + var(--safe-bottom, 0px));
 }
 .mode-topbar {
   width: 100%; max-width: 700px; display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
@@ -153,9 +154,10 @@
 /* ---- écran de résultat (div.mode-done — pas le bouton .mode-btn.mode-done) ---- */
 .mode-done:not(.mode-btn) {
   --green-d: #5A9645; --yellow: #F4C24E; --yellow-d: #D9A52E;
-  min-height: 100vh; background: linear-gradient(180deg, #6FAE54, #5A9645);
+  min-height: 100vh; min-height: 100dvh; background: linear-gradient(180deg, #6FAE54, #5A9645);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 40px 30px; font-family: 'Quicksand', sans-serif;
+  text-align: center; padding: calc(40px + var(--safe-top, 0px)) 30px calc(40px + var(--safe-bottom, 0px));
+  font-family: 'Quicksand', sans-serif;
 }
 .mode-done-emoji { font-size: 70px; animation: mode-pop .5s ease; }
 @keyframes mode-pop { 0%{transform:scale(.4)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }

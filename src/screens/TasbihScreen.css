@@ -1,12 +1,13 @@
 .tasbih-screen {
   min-height: 100vh;
+  min-height: 100dvh;
   background: linear-gradient(180deg, #FFF8EC 0%, #F5E8D0 100%);
   font-family: 'Quicksand', sans-serif;
   display: flex; flex-direction: column;
 }
 
 .tasbih-header {
-  padding: 16px 20px;
+  padding: calc(16px + var(--safe-top, 0px)) 20px 16px;
   display: flex; align-items: center; justify-content: space-between;
   background: #6FAE54; color: #fff;
   box-shadow: 0 4px 14px rgba(90,150,69,.25);
@@ -20,7 +21,7 @@
 }
 
 .tasbih-body {
-  max-width: 480px; margin: 0 auto; width: 100%; padding: 24px 20px;
+  max-width: 480px; margin: 0 auto; width: 100%; padding: 24px 20px calc(24px + var(--safe-bottom, 0px));
   display: flex; flex-direction: column; align-items: center; gap: 20px;
 }
 
