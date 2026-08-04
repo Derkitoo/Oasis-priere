@@ -10,7 +10,7 @@ interface Props {
 }
 
 const THEMES = [
-  { id: 'default', name: 'Oasis Émeraude 🌿', price: 0, preview: 'linear-gradient(135deg, #6FAE54, #5A9645)' },
+  { id: 'default', name: 'Sajjada Émeraude 🌿', price: 0, preview: 'linear-gradient(135deg, #6FAE54, #5A9645)' },
   { id: 'night', name: 'Nuit Étoilée 🌌', price: 100, preview: 'linear-gradient(135deg, #1D2A44, #0B132B)' },
   { id: 'sunset', name: 'Coucher de Soleil 🌅', price: 200, preview: 'linear-gradient(135deg, #F2884B, #D9534F)' },
   { id: 'royal', name: 'Palais Royal 👑', price: 300, preview: 'linear-gradient(135deg, #D4AF37, #AA7C11)' },
@@ -83,8 +83,8 @@ export default function Profile({ user, onBack, onReset, onUser }: Props) {
           <div className="p-stat"><span className="p-val">{user.completedPrayers.length}</span><span className="p-label">prières</span></div>
         </div>
 
-        {/* ===== 🛍️ Boutique de l'Oasis ===== */}
-        <div className="profile-section-title">Boutique de l'Oasis 🛍️</div>
+        {/* ===== 🛍️ Boutique Sajjada ===== */}
+        <div className="profile-section-title">Boutique Sajjada 🛍️</div>
         <div className="theme-store-grid">
           {THEMES.map(t => {
             const isUnlocked = unlocked.includes(t.id);

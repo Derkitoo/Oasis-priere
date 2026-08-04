@@ -59,12 +59,17 @@
   font-family: 'Quicksand', sans-serif; font-size: 11px; font-weight: 800;
 }
 .onboard-step-welcome h1 {
-  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 34px;
+  font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 46px;
   color: #fff; margin-top: 5px; line-height: 1.05;
+}
+.onboard-signature {
+  margin-top: 5px; color: #FCEFC7;
+  font-family: 'Baloo 2', cursive; font-size: 16px; font-weight: 800;
+  letter-spacing: .2px;
 }
 .onboard-step-welcome p {
   font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 15.5px;
-  color: #E4F2D8; margin-top: 12px; max-width: 280px;
+  color: #E4F2D8; margin-top: 13px; max-width: 310px;
 }
 .onboard-step-welcome .btn-gold { margin-top: 26px; }
 

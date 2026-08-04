@@ -36,8 +36,9 @@ export default function Onboarding({ onDone }: Props) {
               <span className="brand-mosque">🕌</span>
             </div>
             <div className="onboard-kicker">Bienvenue dans</div>
-            <h1>L'Oasis de la Prière</h1>
-            <p>Un parcours doux et ludique pour apprendre la prière, à ton rythme.</p>
+            <h1>Sajjada</h1>
+            <div className="onboard-signature">La prière pas à pas</div>
+            <p>Un parcours doux et ludique pour apprendre, comprendre et aimer la prière.</p>
             <button className="btn-gold" onClick={() => setStep(1)}>Commencer ✨</button>
             <div className="onboard-dots">
               <span className="od on" /><span className="od" /><span className="od" /><span className="od" /><span className="od" />

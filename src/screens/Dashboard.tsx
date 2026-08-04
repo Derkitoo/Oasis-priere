@@ -57,7 +57,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
     if (treeLeaves < 100) return { title: 'Jeune Pousse 🌱', emoji: '🌱', desc: 'Arrose ton arbre avec tes prières !' };
     if (treeLeaves < 300) return { title: 'Arbrisseau 🌿', emoji: '🌿', desc: 'Tes feuilles verdissent au soleil !' };
     if (treeLeaves < 600) return { title: 'Grand Arbre 🌳', emoji: '🌳', desc: 'Un feuillage abondant et protecteur !' };
-    return { title: 'L\'Arbre Céleste 🌴', emoji: '🌴', desc: 'Ton Oasis resplendit de lumière !' };
+    return { title: 'L\'Arbre Céleste 🌴', emoji: '🌴', desc: 'Ton parcours resplendit de lumière !' };
   };
   const treeStage = getTreeStage();
 
@@ -185,7 +185,7 @@ export default function Dashboard({ user, onPray, onWudu, onLearn, onProfile, on
           <div className="tree-icon">{treeStage.emoji}</div>
           <div className="tree-info">
             <div className="tree-title">{treeStage.title}</div>
-            <div className="tree-sub">{treeLeaves} feuilles d'Oasis · {treeStage.desc}</div>
+            <div className="tree-sub">{treeLeaves} points de lumière · {treeStage.desc}</div>
           </div>
         </div>
 
