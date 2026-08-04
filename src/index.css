@@ -13,14 +13,26 @@
   --border: rgba(212,175,55,0.2);
 }
 
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Segoe UI', system-ui, sans-serif;
   min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height for mobile */
+  overflow-x: hidden;
 }
 
-#root { min-height: 100vh; }
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+}
+
 button { cursor: pointer; font-family: inherit; border: none; }
 input { font-family: inherit; }
 
@@ -41,3 +53,20 @@ input { font-family: inherit; }
   display: flex; align-items: center; gap: 10px; width: 100%;
 }
 .wudu-arabic-row .wudu-arabic { flex: 1; }
+
+/* =============================================
+   RESPONSIVE GLOBAL — Fluide sur tous les écrans
+   ============================================= */
+
+/* Z Fold plié (petits écrans < 400px) */
+@media (max-width: 400px) {
+  html { font-size: 15px; }
+}
+
+/* Grands écrans : conteneur centré avec max-width fluide */
+@media (min-width: 769px) {
+  #root {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}

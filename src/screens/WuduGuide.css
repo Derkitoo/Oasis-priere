@@ -16,7 +16,7 @@
 }
 
 .wudu-topbar {
-  width: 100%; max-width: 460px;
+  width: 100%; max-width: 700px;
   display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
 }
 .wudu-back {
@@ -36,7 +36,7 @@
 }
 
 .wudu-progress {
-  width: 100%; max-width: 460px; height: 12px;
+  width: 100%; max-width: 700px; height: 12px;
   background: #C9E6F4; border-radius: 100px; overflow: hidden; margin-bottom: 16px;
 }
 .wudu-fill {
@@ -46,7 +46,7 @@
 
 /* mascotte coach */
 .wudu-coach {
-  width: 100%; max-width: 460px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+  width: 100%; max-width: 700px; display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
 }
 .wudu-coach-mascot { height: 46px; flex: none; filter: drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
 .wudu-coach-bubble {
@@ -56,7 +56,7 @@
 }
 
 .wudu-content {
-  width: 100%; max-width: 460px;
+  width: 100%; max-width: 700px;
   display: flex; flex-direction: column; align-items: center;
 }
 
@@ -116,7 +116,7 @@
 .wudu-next-btn:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--blue-d); }
 
 .wudu-nav {
-  width: 100%; max-width: 460px;
+  width: 100%; max-width: 700px;
   display: flex; gap: 10px; padding: 12px 20px 24px;
 }
 .wudu-nav-btn {
@@ -146,7 +146,7 @@
 }
 
 .wudu-dots {
-  width: 100%; max-width: 460px; display: flex; flex-wrap: wrap; gap: 6px;
+  width: 100%; max-width: 700px; display: flex; flex-wrap: wrap; gap: 6px;
   justify-content: center; margin-top: 18px;
 }
 .wudu-dot { width: 8px; height: 8px; border-radius: 50%; background: #C9E6F4; }
