@@ -12,8 +12,6 @@ interface Props {
   onBack: () => void;
 }
 
-const MASCOT = `${import.meta.env.BASE_URL}postures/takbir_3.png`;
-
 export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactElement {
   const [idx, setIdx] = useState(0);
   const [showDesc, setShowDesc] = useState(false);
@@ -23,6 +21,11 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
   const total = WUDU_STEPS.length;
   const pct = ((idx + 1) / total) * 100;
   const ra = user.readArabic ?? 'partial';
+  const mascot = `${import.meta.env.BASE_URL}postures/${user.avatarChoice === 'girl' ? 'girl' : 'boy'}_ruku_2.png`;
+  const personalizedSteps = ['mains', 'bouche', 'nez', 'visage', 'dua'];
+  const stepImage = personalizedSteps.includes(step.id)
+    ? `${user.avatarChoice === 'girl' ? 'girl' : 'boy'}_wudu_${step.id}.png`
+    : step.image;
 
   const encouragement =
     idx === 0 ? 'On se purifie, bismillah ! 💧'
@@ -53,7 +56,7 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
   if (done) return (
     <div className="wudu-done">
       <Confetti />
-      <img className="celebrate-mascot" src={MASCOT} alt="" />
+      <img className="celebrate-mascot" src={mascot} alt="" />
       <div className="wudu-done-icon">💧</div>
       <h2>Alhamdulillâh !</h2>
       <p>Tu es en état de pureté.<br />Tu peux maintenant faire la prière.</p>
@@ -82,16 +85,16 @@ export default function WuduGuide({ user, onUser, onBack }: Props): React.ReactE
 
       {/* Mascotte coach */}
       <div className="wudu-coach">
-        <img className="wudu-coach-mascot" src={MASCOT} alt="" />
+        <img className="wudu-coach-mascot" src={mascot} alt="" />
         <div className="wudu-coach-bubble">{encouragement}</div>
       </div>
 
       {/* Contenu */}
       <div className="wudu-content">
         {/* Image */}
-        {step.image ? (
+        {stepImage ? (
           <div className="wudu-img-wrap">
-            <img className="wudu-img" src={`${import.meta.env.BASE_URL}wudu/${step.image}`} alt={step.label} />
+            <img className="wudu-img" src={`${import.meta.env.BASE_URL}wudu/${stepImage}`} alt={step.label} />
           </div>
         ) : (
           <div className="wudu-img-placeholder">💧</div>
