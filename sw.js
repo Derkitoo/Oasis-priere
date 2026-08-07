@@ -2,7 +2,7 @@
 // vite.config.ts) — ça force un nouveau nom de cache par déploiement, donc
 // l'ancien est bien purgé par le handler 'activate' au lieu de rester en
 // cache indéfiniment.
-const CACHE_NAME = 'sajjada-1786057184788';
+const CACHE_NAME = 'sajjada-1786061012134';
 const APP_SHELL = ['./', './manifest.webmanifest', './pwa-192.png', './pwa-512.png'];
 
 self.addEventListener('install', (event) => {
